@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decoration Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        img {
+            max-width: 100px;
+        }
+        .add-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .add-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>Decoration Details</h1>
+
+    <a href="{% url 'add_decoration' %}" class="add-button">Add Decoration</a>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Image</th>
+        </tr>
+        {% for decoration in decorations %}
+        <tr>
+            <td>{{ decoration.decoration_name }}</td>
+            <td>{{ decoration.decoration_price }}</td>
+            <td>
+                <img src="{{ decoration.decoration_image.url }}" alt="{{ decoration.decoration_name }}">
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">No decorations found.</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'admin_dash' %}">Back to Dashboard</a>
+</body>
+</html>

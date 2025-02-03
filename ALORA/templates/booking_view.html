@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Details</title>
+</head>
+<body>
+    <h1>Booking Details</h1>
+
+    <div class="booking-details">
+        <p><strong>Event Date:</strong> {{ booking.event_date }}</p>
+        <p><strong>Hall:</strong> {{ booking.hall_id.name }} ({{ booking.hall_id.location }})</p>
+        <p><strong>Number of Persons:</strong> {{ booking.no_of_persons }}</p>
+
+        {% if booking.food %}
+        <p><strong>Food:</strong> {{ booking.food.food_name }} (Price per person: {{ booking.food.food_price }})</p>
+        {% endif %}
+
+        {% if booking.decoration %}
+        <p><strong>Decoration:</strong> {{ booking.decoration.decoration_name }} (Price per person: {{ booking.decoration.decoration_price }})</p>
+        {% endif %}
+
+        <p><strong>Photography Cost:</strong> {{ booking.photography_cost }}</p>
+        <p><strong>Total Payment:</strong> {{ booking.total_payment }}</p>
+        <p><strong>Payment Status:</strong> {{ booking.payment_status }}</p>
+        <form action="{% url 'stripe_payments' id=booking.id %}">
+            {% csrf_token %}
+            {% if i.event_status == 'Accept' and i.payment_status == 'Pending' %}
+            <input type="submit" value="PAY">
+            {% elif i.payment_status == 'Completed' %}
+            <p>completed</p>
+            {% endif %}
+
+        </form>
+    </div>
+
+    <a href="{% url 'booking_page' %}" class="btn">Make Another Booking</a>
+    <a href="{% url 'profile' %}" class="btn">Back to Profile</a>
+</body>
+</html>

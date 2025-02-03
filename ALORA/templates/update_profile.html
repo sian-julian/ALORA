@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile</title>
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="email" name="email" value="{{ user.email }}" required>
+        <input type="text" name="phone_number" value="{{ user_details.phone_number }}" required>
+        <select name="gender">
+            <option value="Male" {% if user_details.gender == "Male" %}selected{% endif %}>Male</option>
+            <option value="Female" {% if user_details.gender == "Female" %}selected{% endif %}>Female</option>
+            <option value="Other" {% if user_details.gender == "Other" %}selected{% endif %}>Other</option>
+        </select>
+        <textarea name="address">{{ user_details.address }}</textarea>
+        <button type="submit">Update Profile</button>
+    </form>
+    
+</body>
+</html>

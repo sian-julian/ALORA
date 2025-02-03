@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin View Bookings</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h2>Booking Management</h2>
+
+    {% if data %}
+        <table>
+            <tr>
+                <th>Event Date</th>
+                <th>User Name</th>
+                <th>Hall</th>
+                <th>Booking Date</th>
+                <th>Photography</th>
+                <th>Photography Cost</th>
+                <th>Food</th>
+                <th>Food Details</th>
+                <th>Number of People</th>
+                <th>Decoration</th>
+                <th>Decoration Details</th>
+                <th>Payment Status</th>
+                <th>Total Amount</th>
+                <th>Action</th>
+            </tr>
+            {% for x in data %}
+            <tr>
+                <td>{{ x.event_date }}</td>
+                <td>{{ x.user_id.first_name }}</td>
+                <td>{{ x.hall_id.hall_name }}</td>
+                <td>{{ x.booking_date }}</td>
+                <td>{{ x.photography }}</td>
+                <td>{{ x.photography_cost }}</td>
+                <td>{{ x.food_value }}</td>
+                <td>{{ x.food.food_name }} <br> ₹{{ x.food.food_price }}</td>
+                <td>{{ x.no_of_people }}</td>
+                <td>{{ x.decoration_value }}</td>
+                <td>{{ x.decoration.decoration_name }} <br> ₹{{ x.decoration.decoration_price }}</td>
+                <td>{{ x.payment_status }}</td>
+                <td>₹{{ x.total_payment }}</td>
+                <td>
+                    <form action="{% url 'acceptrejectbooking' id=x.id %}" method="post">
+                        {% csrf_token %}
+                        {% if x.event_status == 'Pending' %}
+                            <button type="submit" name="Status" value="Accept">Accept</button>
+                            <button type="submit" name="Status" value="Reject">Reject</button>
+                        {% elif x.event_status == 'Accept' %}
+                            <button type="submit" name="Status" value="Reject">Reject</button>
+                        {% else %}
+                            <button type="submit" name="Status" value="Accept">Accept</button>
+                        {% endif %}
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No bookings found.</p>
+    {% endif %}
+</body>
+</html>

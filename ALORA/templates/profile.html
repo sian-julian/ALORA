@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+<body>
+    <h1>Welcome, {{ user.username }}</h1>
+    <p>Email: {{ user.email }}</p>
+    <p>Phone Number: {{ user_details.phone_number }}</p>
+    <p>Gender: {{ user_details.gender }}</p>
+    <p>Address: {{ user_details.address }}</p>
+    <a href="{% url 'update' %}">Edit Profile</a>
+    <a href="{% url 'logout' %}">Logout</a>
+    <a href="{% url 'booking_page' %}">Booking page</a>
+    <a href="{% url 'view_bookings' %}">View All Bookings</a>
+</body>
+</html>

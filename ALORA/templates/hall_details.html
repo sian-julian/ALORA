@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hall Details</title>
+</head>
+<body>
+    <a href="{% url 'add_hall' %}">Add Hall</a>
+    <h1>Hall Details</h1>
+    <ul>
+        {% for hall in halls %}
+        <li>
+            <h3>{{ hall.name }}</h3>
+            <p>Location: {{ hall.location }}</p>
+            <p>Capacity: {{ hall.capacity }}</p>
+            <p>Price per Day: ${{ hall.price_per_day }}</p>
+            <p>Description: {{ hall.description }}</p>
+            <img src="{{ hall.photo_url.url }}" alt="{{ hall.name }}" style="width:200px;height:auto;">
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'admin_dash' %}">Back to Dashboard</a>
+</body>
+</html>

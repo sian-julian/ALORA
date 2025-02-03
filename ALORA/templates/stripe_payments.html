@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <title>Stripe Payment</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f7f8fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .payment-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 800px;
+            display: flex;
+            justify-content: space-between;
+            max-width: 100%;
+        }
+        .left-side {
+            width: 40%;
+            padding-right: 20px;
+            text-align: center;
+        }
+        .right-side {
+            width: 60%;
+        }
+        .payment-container h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #32325d;
+        }
+        .payment-container p {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        #card-element {
+            border: 1px solid #ccc;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #6772e5;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #5469d4;
+        }
+        .hidden {
+            display: none;
+        }
+        .success-message {
+            color: #4caf50;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .error-message {
+            color: #f44336;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .debit-card-image {
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <!-- Left side -->
+        <div class="left-side">
+            <h1>Secure Payment</h1>
+            <p>Amount to Pay: <strong>${{ total_amount }}</strong></p>
+            <!-- Debit card image -->
+            <img src="{% static 'images/creaditcard.jpg' %}" alt="Debit Card" class="debit-card-image" style="border-radius: 10px;">
+        </div>
+        
+        <!-- Right side -->
+        <div class="right-side">
+            <form id="payment-form">
+                <input type="email" id="email" placeholder="Email" required>
+                <div id="card-element">
+                    <!-- Stripe.js injects the Card Element here -->
+                </div>
+                <input type="text" id="cardholder-name" placeholder="Cardholder Name" required>
+                <select id="country" required>
+                    <option value="">Select Country</option>
+                    <option value="US">USA</option>
+                    <option value="CN">Canada</option>
+                    <!-- Add other countries as needed -->
+                </select>
+                <input type="tel" id="phone" placeholder="Phone Number" required>
+                <button id="submit">Pay Now</button>
+                <div id="payment-message" class="hidden"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const stripe = Stripe("{{ STRIPE_PUBLISHABLE_KEY }}");
+        const clientSecret = "{{ client_secret }}";
+
+        const elements = stripe.elements();
+        const cardElement = elements.create("card", {
+            style: {
+                base: {
+                    color: "#32325d",
+                    fontFamily: '"Roboto", Arial, sans-serif',
+                    fontSmoothing: "antialiased",
+                    fontSize: "16px",
+                    "::placeholder": {
+                        color: "#a0aec0",
+                    },
+                },
+                invalid: {
+                    color: "#e53e3e",
+                    iconColor: "#e53e3e",
+                },
+            },
+        });
+        cardElement.mount("#card-element");
+
+        const form = document.getElementById("payment-form");
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const { error } = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: {
+                    card: cardElement,
+                    billing_details: {
+                        name: document.getElementById("cardholder-name").value,
+                        email: document.getElementById("email").value,
+                        phone: document.getElementById("phone").value,
+                        address: {
+                            country: document.getElementById("country").value,
+                        }
+                    }
+                }
+            });
+
+            const messageDiv = document.getElementById("payment-message");
+            if (error) {
+                console.error(error);
+                messageDiv.textContent = "Payment failed: " + error.message;
+                messageDiv.className = "error-message";
+            } else {
+                messageDiv.textContent = "Payment successful!";
+                messageDiv.className = "success-message";
+                setTimeout(() => {
+                    window.location.href = "{% url 'payment_status' id=data.id %}";
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Bookings</title>
+</head>
+<body>
+    <h1>Your Bookings</h1>
+    {% if bookings %}
+        <ul>
+            {% for booking in bookings %}
+                <li>
+                    <strong>Event Date:</strong> {{ booking.event_date }} <br>
+                    <strong>Hall:</strong> {{ booking.hall_id.name }} <br>
+                    <strong>Total Payment:</strong> {{ booking.total_payment }} <br>
+                    <strong>Payment Status:</strong> {{ booking.payment_status }} <br>
+                    <a href="{% url 'stripe_payments' id=booking.id %}">Make Payment</a> 
+                </li>
+                <hr>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No bookings found.</p>
+    {% endif %}
+    
+    <a href="{% url 'profile' %}">Back to Profile</a>
+</body>
+</html>

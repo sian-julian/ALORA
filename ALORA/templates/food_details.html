@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2>Food Details</h2>
+    <a href="{% url 'add_food' %}" class="btn btn-primary mb-3">Add New Food</a>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Food Name</th>
+                <th>Food Image</th>
+                <th>Food Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for food in foods %}
+            <tr>
+                <td>{{ food.food_name }}</td>
+                <td><img src="{{ food.food_image.url }}" alt="{{ food.food_name }}" width="100"></td>
+                <td>${{ food.food_price }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<a href="{% url 'admin_dash' %}">Back to Dashboard</a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
