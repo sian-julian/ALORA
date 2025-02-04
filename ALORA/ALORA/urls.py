@@ -49,7 +49,8 @@ urlpatterns = [
     path('booking_view',views.booking_view,name='booking_view'),
     path('view_bookings',views.view_bookings,name='view_bookings'),
 
-    path('stripe_payments/<int:id>',views.stripe_payments,name='stripe_payments')
+    path('stripe_payments/<int:id>',views.stripe_payments,name='stripe_payments'),
+    path('payment_status/<int:id>/',views.payment_status, name='payment_status'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT) 

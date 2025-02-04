@@ -29,11 +29,11 @@ class Decoration(models.Model):
 
 class Bookings(models.Model):
     event_date=models.DateField(null=True)
-    event_status=models.CharField(max_length=100,default='pending')
+    event_status=models.CharField(max_length=100,default='Pending')
     user_id=models.ForeignKey(User,on_delete=models.CASCADE)
     hall_id=models.ForeignKey(Halls,on_delete=models.CASCADE)
     booking_date=models.DateField(auto_now_add=True)
-    payment_status=models.CharField(max_length=100)
+    payment_status=models.CharField(max_length=100,default='Pending')
     photography=models.CharField(max_length=100,null=True,blank=True)
     no_of_persons=models.IntegerField(null=True,blank=True)
     food_value=models.BooleanField(null=True,blank=True)

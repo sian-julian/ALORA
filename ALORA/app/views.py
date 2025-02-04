@@ -278,14 +278,16 @@ def admin_view_booking(request):
 
 @login_required(login_url='login')
 def accept_reject_booking(request,id):
-    data=get_object_or_404(Bookings,id=id)
+    data=Bookings.objects.get(id=id)
     if request.method == 'POST':
         value=request.POST.get('Status')
-        if value in ['Accept','Reject']:
-            data.event_status=value
-            data.save()
-        return redirect('admin_view_booking')
-    return redirect('admin_view_booking')
+        if value == 'Accept':
+            data.event_status='Accept'
+        elif value == 'Reject':
+            data.event_status='Reject'
+        data.save()
+        return redirect(admin_view_booking)
+    return redirect(admin_view_booking)
 
 
 
@@ -351,7 +353,8 @@ def booking_view(request):
 
 @login_required(login_url='login')
 def view_bookings(request):
-    bookings=Bookings.objects.filter(user=request.user)                # Fetch bookings for the logged-in user
+    user=User.objects.get(id=request.user.id)
+    bookings = Bookings.objects.filter(user_id=user)            # Fetch bookings for the logged-in user
     return render(request,'view_bookings.html',{'bookings':bookings})
 
 #---payment----
@@ -378,6 +381,14 @@ def stripe_payments(request,id):
         return render(request,'stripe_payments.html',context)
     except Bookings.DoesNotExist:
         return redirect(booking_view)
+    
+
+def payment_status(request, id):
+    data=get_object_or_404(Bookings,id=id) 
+    data.payment_status="Completed"
+    data.save()
+    return redirect('view_bookings') 
+
 
 
 

@@ -44,14 +44,14 @@
             {% for x in data %}
             <tr>
                 <td>{{ x.event_date }}</td>
-                <td>{{ x.user_id.first_name }}</td>
-                <td>{{ x.hall_id.hall_name }}</td>
+                <td>{{ x.user_id.username }}</td>
+                <td>{{ x.hall_id.name }}</td>
                 <td>{{ x.booking_date }}</td>
                 <td>{{ x.photography }}</td>
                 <td>{{ x.photography_cost }}</td>
                 <td>{{ x.food_value }}</td>
                 <td>{{ x.food.food_name }} <br> ₹{{ x.food.food_price }}</td>
-                <td>{{ x.no_of_people }}</td>
+                <td>{{ x.no_of_persons }}</td>
                 <td>{{ x.decoration_value }}</td>
                 <td>{{ x.decoration.decoration_name }} <br> ₹{{ x.decoration.decoration_price }}</td>
                 <td>{{ x.payment_status }}</td>

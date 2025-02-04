@@ -15,7 +15,20 @@
                     <strong>Hall:</strong> {{ booking.hall_id.name }} <br>
                     <strong>Total Payment:</strong> {{ booking.total_payment }} <br>
                     <strong>Payment Status:</strong> {{ booking.payment_status }} <br>
-                    <a href="{% url 'stripe_payments' id=booking.id %}">Make Payment</a> 
+                    <strong>event_status:{{booking.event_status}}</strong>
+                    <!-- {% if booking.event_status == 'Accept' and booking.payment_status == 'Pending' %}
+                    <a href="{% url 'stripe_payments' id=booking.id %}">Make Payment</a>
+                    {% elif booking.payment_status == 'Completed' %}
+                    <p>Payment Completed</p>
+                    {% endif %} -->
+                    <form action="{% url 'stripe_payments' id=booking.id %}">
+                        {% csrf_token %}
+                        {% if booking.event_status == 'Accept' and booking.payment_status == 'pending' %}
+                        <input type="submit" value="PAY">
+                        {% elif booking.payment_status == 'Completed' %}
+                        <p>Payment Completed</p>
+                        {% endif %}
+                    </form>
                 </li>
                 <hr>
             {% endfor %}

@@ -26,12 +26,11 @@
         <p><strong>Payment Status:</strong> {{ booking.payment_status }}</p>
         <form action="{% url 'stripe_payments' id=booking.id %}">
             {% csrf_token %}
-            {% if i.event_status == 'Accept' and i.payment_status == 'Pending' %}
+            {% if booking.event_status == 'Accept' and booking.payment_status == 'Pending' %}
             <input type="submit" value="PAY">
-            {% elif i.payment_status == 'Completed' %}
-            <p>completed</p>
+            {% elif booking.payment_status == 'Completed' %}
+            <p>Payment Completed</p>
             {% endif %}
-
         </form>
     </div>
 
