@@ -117,7 +117,7 @@ def view_users(request):
         messages.error(request, "You are not authorized to view this page.")
         return redirect('admin_dash')
     
-    users=User.objects.all()
+    users=User_details.objects.all()
     return render(request,'view_users.html',{'users':users})
 
 @login_required(login_url='login')
