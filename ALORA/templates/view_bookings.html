@@ -4,39 +4,224 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Bookings</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e8dad6;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #5a4a42;
+            text-align: center;
+            margin: 30px 0;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #bfa79b;
+            padding-bottom: 10px;
+        }
+        
+        .booking-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .booking-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .booking-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .booking-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .booking-date {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #5a4a42;
+        }
+        
+        .booking-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .detail-item {
+            margin-bottom: 8px;
+        }
+        
+        .detail-label {
+            font-weight: bold;
+            color: #7d6b63;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .detail-value {
+            font-size: 1.1rem;
+        }
+        
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+        
+        .status-accept {
+            background-color: #e6f7ee;
+            color: #0f9d58;
+        }
+        
+        .status-pending {
+            background-color: #fff8e1;
+            color: #ff9800;
+        }
+        
+        .status-rejected {
+            background-color: #fdeded;
+            color: #d32f2f;
+        }
+        
+        .status-completed {
+            background-color: #e8f0fe;
+            color: #1a73e8;
+        }
+        
+        .btn {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: #5a4a42;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #483c36;
+            transform: translateY(-2px);
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #5a4a42;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        
+        .back-link:hover {
+            color: #7d6b63;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: #7d6b63;
+            font-size: 1.2rem;
+        }
+        
+        .payment-status {
+            margin-top: 15px;
+            text-align: right;
+        }
+        
+        .payment-complete {
+            color: #0f9d58;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h1>Your Bookings</h1>
-    {% if bookings %}
-        <ul>
-            {% for booking in bookings %}
-                <li>
-                    <strong>Event Date:</strong> {{ booking.event_date }} <br>
-                    <strong>Hall:</strong> {{ booking.hall_id.name }} <br>
-                    <strong>Total Payment:</strong> {{ booking.total_payment }} <br>
-                    <strong>Payment Status:</strong> {{ booking.payment_status }} <br>
-                    <strong>event_status:{{booking.event_status}}</strong>
-                    <!-- {% if booking.event_status == 'Accept' and booking.payment_status == 'Pending' %}
-                    <a href="{% url 'stripe_payments' id=booking.id %}">Make Payment</a>
-                    {% elif booking.payment_status == 'Completed' %}
-                    <p>Payment Completed</p>
-                    {% endif %} -->
-                    <form action="{% url 'stripe_payments' id=booking.id %}">
-                        {% csrf_token %}
-                        {% if booking.event_status == 'Accept' and booking.payment_status == 'pending' %}
-                        <input type="submit" value="PAY">
-                        {% elif booking.payment_status == 'Completed' %}
-                        <p>Payment Completed</p>
-                        {% endif %}
-                    </form>
-                </li>
-                <hr>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No bookings found.</p>
-    {% endif %}
-    
-    <a href="{% url 'profile' %}">Back to Profile</a>
+    <div class="container">
+        <h1>Your Bookings</h1>
+        
+        {% if bookings %}
+            <ul class="booking-list">
+                {% for booking in bookings %}
+                    <li class="booking-card">
+                        <div class="booking-header">
+                            <div class="booking-date">{{ booking.event_date }}</div>
+                            <div>
+                                <span class="status-badge {% if booking.event_status == 'Accept' %}status-accept{% elif booking.event_status == 'Pending' %}status-pending{% else %}status-rejected{% endif %}">
+                                    {{ booking.event_status }}
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="booking-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Venue</span>
+                                <span class="detail-value">{{ booking.hall_id.name }}</span>
+                            </div>
+                            
+                            <div class="detail-item">
+                                <span class="detail-label">Total Amount</span>
+                                <span class="detail-value">${{ booking.total_payment }}</span>
+                            </div>
+                            
+                            <div class="detail-item">
+                                <span class="detail-label">Payment Status</span>
+                                <span class="detail-value">
+                                    <span class="status-badge {% if booking.payment_status == 'Completed' %}status-completed{% else %}status-pending{% endif %}">
+                                        {{ booking.payment_status }}
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="payment-status">
+                            <form action="{% url 'stripe_payments' id=booking.id %}">
+                                {% csrf_token %}
+                                {% if booking.event_status == 'Accept' and booking.payment_status == 'pending' %}
+                                    <button type="submit" class="btn btn-primary">Make Payment</button>
+                                {% elif booking.payment_status == 'Completed' %}
+                                    <p class="payment-complete">✓ Payment Completed</p>
+                                {% endif %}
+                            </form>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div class="empty-state">
+                <p>You don't have any bookings yet.</p>
+            </div>
+        {% endif %}
+        
+        <a href="{% url 'profile' %}" class="back-link">← Back to Profile</a>
+    </div>
 </body>
 </html>

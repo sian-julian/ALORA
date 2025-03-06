@@ -15,6 +15,10 @@ from django.conf import settings
 def index(request):
     return render(request,'index.html')
 
+@login_required(login_url='login')
+def home(request):
+    return render(request,'home.html')
+
 def user_register(request):
     if request.method == 'POST':
         username=request.POST['username']
@@ -61,7 +65,7 @@ def user_login(request):
         if user is not None:
             login(request,user)
             messages.success(request,"Login successfull")
-            return redirect('profile')
+            return redirect('home')
         else:
             messages.error(request,"Invalid username or password")
             return redirect('login')
@@ -388,6 +392,21 @@ def payment_status(request, id):
     data.payment_status="Completed"
     data.save()
     return redirect('view_bookings') 
+
+
+
+#navbar
+def service(request):
+    return render(request,'service.html')
+
+def aboutus(request):
+    return render(request,'aboutus.html')
+
+def gallery(request):
+    return render(request,'gallery.html')
+
+def testimonial(request):
+    return render(request,'testimonial.html')
 
 
 

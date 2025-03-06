@@ -1,0 +1,362 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testimonials</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for stars and social icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Irish Grover' rel='stylesheet'>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: #06090b;
+        }
+
+        .navbar-brand, .nav-link {
+            color: #ffffff !important;
+        }
+
+        .testimonial-heading {
+            text-align: center;
+            margin: 50px 0 30px;
+            font-weight: bold;
+        }
+
+        .testimonial-card {
+            background-color: #f5e9e9;
+            border-radius: 10px;
+            padding: 25px;
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-text {
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .stars {
+            color: #ffc107;
+            margin-bottom: 10px;
+        }
+
+        .star-container {
+            display: flex;
+            gap: 3px;
+        }
+
+        /* Footer Styling */
+        .footer {
+            background-color: #151414;
+            padding: 3rem 0;
+            margin-top: 2rem;
+            color: #f3f4f6;
+        }
+
+        .footer .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            background-color: transparent;
+        }
+
+        .footer .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer .col-md-4 {
+            flex: 1 1 300px;
+        }
+
+        .footer .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .footer p {
+            color: #d1d5db;
+            margin-top: 1rem;
+        }
+
+        .footer h4 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: #f3f4f6;
+        }
+
+        /* New Navigation Bar Styles */
+        .topnav {
+            background-color: black;
+            color: white;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+        }
+
+        .alora {
+            width: 110px;
+            margin-left: 40px;
+            display: flex;
+            padding-top: 10px;
+        }
+
+        .alora h3 {
+            font-family: 'Irish Grover';
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo {
+            width: 30px;
+            height: 30px;
+            margin-left: 5px;
+        }
+
+        .topmenu {
+            width: 550px;
+            margin-right: 500px;
+        }
+
+        .topmenu a {
+            padding: 10px 18px;
+            color: white;
+            text-decoration: none;
+            font-size: large;
+        }
+
+        .topmenu a:hover {
+            background-color: rgb(86, 86, 86);
+        }
+
+        .topmenu a:active {
+            color: rgb(10, 9, 9);
+        }
+
+        /* Toggle Button Styles */
+        .toggle-button {
+            display: none; /* Hide by default */
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+
+        .toggle-button .bar {
+            height: 3px;
+            width: 100%;
+            background-color: white;
+            border-radius: 10px;
+        }
+
+        /* Mobile Navigation Styles */
+        @media (max-width: 768px) {
+            .toggle-button {
+                display: flex; /* Show toggle button on mobile */
+            }
+
+            .topmenu {
+                display: none; /* Hide the menu by default on mobile */
+                flex-direction: column;
+                width: 100%;
+                background-color: black;
+                position: absolute;
+                top: 55px;
+                left: 0;
+                z-index: 1000;
+            }
+
+            .topmenu.active {
+                display: flex; /* Show the menu when active */
+            }
+
+            .topmenu a {
+                padding: 15px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- New Navigation Bar -->
+<div class="topnav">
+    <div class="alora">
+        <h3>ALORA</h3>
+        <img src="{% static 'alora_icon.png' %}" class="logo" alt="Alora logo">
+    </div>
+    <div class="topmenu">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'service' %}">services</a>
+        <a href="{% url 'aboutus' %}">About</a>
+        <a href="{% url 'gallery' %}">Gallery</a>
+        <a href="{% url 'testimonial' %}" class="active">Testimonials</a>
+    </div>
+    <!-- Toggle Button for Mobile -->
+    <div class="toggle-button">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+</div>
+
+<!-- Testimonials Section -->
+<div class="container">
+    <h2 class="testimonial-heading">TESTIMONIALS</h2>
+    
+    <div class="row g-4 mb-5">
+        <!-- Testimonial 1 -->
+        <div class="col-12 col-md-6 col-lg-6">
+            <div class="testimonial-card">
+                <img src="{% static 'singer-Taylor-swift-2013.webp' %}" alt="Avatar" class="avatar">
+                <div class="testimonial-text">
+                    <p>"The event was flawlessly managed! From the venue setup to the scheduling, everything was well-coordinated. The speakers were engaging, and the experience was truly memorable."</p>
+                </div>
+                <div class="star-container">
+                    <i class="fas fa-star stars"></i>
+                    <i class="fas fa-star stars"></i>
+                    <i class="fas fa-star stars"></i>
+                    <i class="fas fa-star stars"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Testimonial 2 -->
+        <div class="col-12 col-md-6 col-lg-6">
+            <div class="testimonial-card">
+                <img src="{% static '100k-ai-faces-3.jpg' %}" alt="Avatar" class="avatar">
+                <div class="testimonial-text">
+                    <p>"I appreciate the attention to detail in organizing the event. The registration process was smooth, the team was responsive, and the event schedule was perfectly planned."</p>
+                </div>
+                <div class="star-container">
+                    <i class="fas fa-star stars"></i>
+                    <i class="fas fa-star stars"></i>
+                    <i class="fas fa-star stars"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Testimonial 3 -->
+        <div class="col-12 col-md-6 col-lg-6">
+            <div class="testimonial-card">
+                <img src="{% static 'OIP_1.jpg' %}" alt="Avatar" class="avatar">
+                <div class="testimonial-text">
+                    <p>Excellent communication from the event team throughout planning. The catering was delicious and well-timed. I appreciated the networking opportunities provided.</p>
+                </div>
+                <div class="star-container">
+                    <i class="fas fa-star stars"></i>
+                    <i class="fas fa-star stars"></i>
+                    <i class="fas fa-star stars"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Testimonial 4 -->
+        <div class="col-12 col-md-6 col-lg-6">
+            <div class="testimonial-card">
+                <img src="{% static 'OIP.jpg' %}" alt="Avatar" class="avatar">
+                <div class="testimonial-text">
+                    <p>"I was impressed by the level of detail put into planning this event. The workshops were engaging, and the networking opportunities made it even more worthwhile."</p>
+                </div>
+                <div class="star-container">
+                    <i class="fas fa-star stars"></i>
+                    <i class="fas fa-star stars"></i>
+                    <i class="fas fa-star stars"></i>
+                    <i class="fas fa-star stars"></i>
+                    <i class="fas fa-star stars"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="logo">ALORA</div>
+                <p class="mt-3">Copyright © Alora Events. All rights reserved.</p>
+            </div>
+            <div class="col-md-4 mb-4">
+                <h4>Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#Home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#About">About</a></li>
+                    <li><a href="#Gallery">Gallery</a></li>
+                    <li><a href="#testimony">Testimonials</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 mb-4">
+                <h4>Contact Us</h4>
+                <ul class="footer-links">
+                    <li>✉ aloraevents@gmail.com</li>
+                    <li>📞 Phone: 9633769633</li>
+                    <li>📞 9645757016</li>
+                    <li>📍 37/1143-B Karanthur, Nilambur Rd,2nd Floor, Paradise, Kondotty, Kerala 673638</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap JS Bundle with Popper -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+<!-- JavaScript for Toggle Button -->
+<script>
+    const toggleButton = document.querySelector('.toggle-button');
+    const topmenu = document.querySelector('.topmenu');
+
+    toggleButton.addEventListener('click', () => {
+        topmenu.classList.toggle('active');
+    });
+</script>
+</body>
+</html>

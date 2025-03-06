@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Irish Grover' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&display=swap" rel="stylesheet">
+    <title>About Us - ALORA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #e8dad6;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+        }
+        
+        /* New Navigation Bar Styles */
+        .topnav {
+            background-color: black;
+            color: white;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+        }
+
+        .alora {
+            width: 110px;
+            margin-left: 40px;
+            display: flex;
+            padding-top: 10px;
+        }
+
+        .alora h3 {
+            font-family: 'Irish Grover';
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo {
+            width: 30px;
+            height: 30px;
+            margin-left: 5px;
+        }
+
+        .topmenu {
+            width: 550px;
+            margin-right: 500px;
+        }
+
+        .topmenu a {
+            padding: 10px 18px;
+            color: white;
+            text-decoration: none;
+            font-size: large;
+        }
+
+        .topmenu a:hover {
+            background-color: rgb(86, 86, 86);
+        }
+
+        .topmenu a:active {
+            color: rgb(10, 9, 9);
+        }
+
+        /* Toggle Button Styles */
+        .toggle-button {
+            display: none; /* Hide by default */
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+
+        .toggle-button .bar {
+            height: 3px;
+            width: 100%;
+            background-color: white;
+            border-radius: 10px;
+        }
+
+        /* Mobile Navigation Styles */
+        @media (max-width: 768px) {
+            .toggle-button {
+                display: flex; /* Show toggle button on mobile */
+            }
+
+            .topmenu {
+                display: none; /* Hide the menu by default on mobile */
+                flex-direction: column;
+                width: 100%;
+                background-color: black;
+                position: absolute;
+                top: 55px;
+                left: 0;
+                z-index: 1000;
+                margin-right: 0;
+            }
+
+            .topmenu.active {
+                display: flex; /* Show the menu when active */
+            }
+
+            .topmenu a {
+                padding: 15px;
+                text-align: center;
+            }
+        }
+        
+        /* Hero Layout - NEW SECTION */
+        .hero-wrapper {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 20px;
+            margin-top: 20px;
+        }
+        
+        /* Wedding Memories Container - UPDATED */
+        .wedding-memories-container {
+            position: relative;
+            width: 45%;
+            height: 500px;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .photo-frame {
+            position: absolute;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+        
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .photo1 {
+            width: 80%;
+            height: 70%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        
+        .photo2 {
+            width: 60%;
+            height: 60%;
+            bottom: 0;
+            right: 0;
+            z-index: 2;
+        }
+        
+        /* Welcome Section - UPDATED */
+        .welcome-section {
+            width: 45%;
+            background-color: #e6e6e6;
+            padding: 30px;
+            margin: 0;
+        }
+        
+        .welcome-section h2 {
+            margin-bottom: 12px;
+            font-size: 30px;
+            font-family: 'Italiana', serif;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        
+        .welcome-section p {
+            font-size: 22px;
+            line-height: 1.4;
+            font-family: 'Josefin Slab', serif;
+        }
+        
+        /* Section Styles */
+        .section {
+            padding: 15px; /* Reduced from 20px */
+            background-color: #f0f0f0;
+            margin: 30px auto; /* Centered with top and bottom margin */
+            max-width: 800px; /* Limiting the width */
+            font-family: 'Josefin Slab', serif; /* Added Josefin Slab font */
+        }
+        
+        .section h2 {
+            text-align: center;
+            margin-bottom: 15px; /* Reduced from 20px */
+            text-transform: uppercase;
+            font-size: 30px; /* Reduced from 24px */
+            letter-spacing: 1px;
+            font-family: 'Josefin Slab', serif;
+            font-weight: 700; /* Making the heading bold */
+        }
+        
+        .section p {
+            line-height: 1.5; /* Reduced from 1.6 */
+            margin-bottom: 12px; /* Reduced from 15px */
+            font-size: 22px; /* Reduced from 14px */
+            color: #333;
+            font-family: 'Josefin Slab', serif;
+            font-weight: 400; /* Regular weight for paragraphs */
+        }
+
+        .section1 {
+            padding: 15px;
+            background-color: #f0f0f0;
+            margin: 30px auto;
+            max-width: 800px;
+            font-family: 'Josefin Slab', serif;
+        }
+        
+        .section1 h2 {
+            text-align: center;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            font-size: 30px;
+            letter-spacing: 1px;
+            font-family: 'Josefin Slab', serif;
+            font-weight: 700;
+        }
+        
+        .section1 p {
+            line-height: 1.5;
+            margin-bottom: 12px;
+            font-size: 22px;
+            color: #333;
+            font-family: 'Josefin Slab', serif;
+            font-weight: 400;
+        }
+        
+        /* Footer Section */
+        .footer {
+            background-color: #2d2d2d;
+            padding: 3rem 0;
+            margin-top: 2rem;
+            color: #f3f4f6;
+        }
+
+        .footer .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            background-color: transparent;
+        }
+
+        .footer .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer .col-md-4 {
+            flex: 1 1 300px;
+        }
+
+        .footer .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .footer p {
+            color: #d1d5db;
+            margin-top: 1rem;
+        }
+
+        .footer h4 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: #f3f4f6;
+        }
+        
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            /* For tablets and mobile */
+            .hero-wrapper {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .wedding-memories-container,
+            .welcome-section {
+                width: 100%;
+            }
+            
+            .photo1, .photo2 {
+                width: 80%;
+                height: 50%;
+            }
+            
+            .photo1 {
+                top: 0;
+                left: 0;
+            }
+            
+            .photo2 {
+                bottom: 0;
+                right: 0;
+            }
+            
+            .footer .row {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            /* For small mobile devices */
+            .wedding-memories-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- New Navigation Bar -->
+    <div class="topnav">
+        <div class="alora">
+            <h3>ALORA</h3>
+            <img src="{% static 'alora_icon.png' %}" class="logo" alt="Alora logo">
+        </div>
+        <div class="topmenu">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'service' %}">Services</a>
+            <a href="{% url 'aboutus' %}">About</a>
+            <a href="{% url 'gallery' %}">Gallery</a>
+            <a href="{% url 'testimonial' %}">Testimonials</a>
+        </div>
+        <!-- Toggle Button for Mobile -->
+        <div class="toggle-button">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </div>
+        
+    <div class="container">
+        <!-- New wrapper for hero section -->
+        <div class="hero-wrapper">
+            <!-- Left side: Photos -->
+            <div class="wedding-memories-container">
+                <div class="photo-frame photo1">
+                    <img src="{% static 'aboutusimg1.png' %}" alt="Wedding couple embracing near a temple">
+                </div>
+                <div class="photo-frame photo2">
+                    <img src="{% static 'aboutusimg1.png' %}" alt="Wedding couple embracing with temple in background">
+                </div>
+            </div>
+            
+            <!-- Right side: Welcome text -->
+            <div class="welcome-section">
+                <h2>Welcome to Alora</h2>
+                <p>
+                    At ALORA, we specialize in creating memorable events that leave a lasting impression. Our comprehensive approach to event planning and management ensures that every detail is perfect. We work closely with you to bring your vision to life successfully, whether it's a dream wedding, a corporate function, or a special celebration.
+                </p>
+                <p>
+                    Our team of event planners, from concept to execution, will manage your entire day with precision. We provide reliable solutions and creative planning to help you make unforgettable memories. Let us handle the practical event details so you can focus on enjoying your planning.
+                </p>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Our Vision</h2>
+            <p>
+                At Alora Event Management, our vision is to become a leading event management company that offers exceptional service and unforgettable experiences to all our clients. We are dedicated to setting a new standard in the event planning industry by providing innovative, creative, and highly personalized service that exceeds expectations.
+            </p>
+            <p>
+                Our goal is to create events that are not only memorable but also meaningful, reflecting the unique traditions, values, and preferences of our clients. With a strong emphasis on culture, we strive to make every celebration, whether a wedding, corporate event, or social gathering, a reflection of our client's personalities for everyone involved.
+            </p>
+            <p>
+                Alora transforms ordinary events into extraordinary, exclusive, and beautiful affairs, turning every celebration into a cherished memory.
+            </p>
+        </div>
+        
+        <div class="section1">
+            <h2>Our Mission</h2>
+            <p>
+                At Alora Event Management, based in Calicut, our mission is to provide exceptional event planning and management services to individuals, businesses, and organizations. We are committed to working meticulously, efficiently, and creatively with our clients, partners, and our team.
+            </p>
+            <p>
+                From traditional weddings and corporate events to private gatherings and cultural functions, we make every detail matter. We believe that the journey is as important as the experience. Our services are designed to reflect your unique style and preferences while ensuring a stress-free planning process.
+            </p>
+            <p>
+                At Alora, we believe that every celebration deserves to be extraordinary. Our experienced team of event planners welcomes everyone to experience our dedication to creating moments that leave a lasting impression.
+            </p>
+        </div>
+    </div>
+        
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="logo">ALORA</div>
+                    <p class="mt-3">Copyright © Alora Events. All rights reserved.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h4>Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'service' %}">Services</a></li>
+                        <li><a href="{% url 'aboutus' %}">About</a></li>
+                        <li><a href="{% url 'gallery' %}">Gallery</a></li>
+                        <li><a href="{% url 'testimonial' %}">Testimonials</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-links">
+                        <li>✉ aloraevents@gmail.com</li>
+                        <li>📞 Phone: 9633769633</li>
+                        <li>📞 9645757016</li>
+                        <li>📍 37/1143-B Karanthur, Nilambur Rd, 2nd Floor, Paradise, Kondotty, Kerala 673638</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Toggle Button -->
+    <script>
+        const toggleButton = document.querySelector('.toggle-button');
+        const topmenu = document.querySelector('.topmenu');
+
+        toggleButton.addEventListener('click', () => {
+            topmenu.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

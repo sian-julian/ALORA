@@ -4,20 +4,206 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Profile</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e8dad6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .profile-container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            margin: 20px;
+        }
+        
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .profile-header h1 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .profile-header p {
+            color: #777;
+            margin-top: 0;
+        }
+        
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 4px solid #e8dad6;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-avatar .edit-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        
+        .profile-avatar:hover .edit-overlay {
+            opacity: 1;
+        }
+        
+        .profile-avatar .edit-overlay span {
+            color: white;
+            font-size: 12px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border 0.3s;
+            box-sizing: border-box;
+        }
+        
+        .form-control:focus {
+            border-color: #c1a599;
+            outline: none;
+        }
+        
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+        
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background-color: #ce8667;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 14px 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: #b09185;
+        }
+        
+        .cancel-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #777;
+            text-decoration: none;
+        }
+        
+        .cancel-link:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 480px) {
+            .profile-container {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <form method="POST">
-        {% csrf_token %}
-        <input type="email" name="email" value="{{ user.email }}" required>
-        <input type="text" name="phone_number" value="{{ user_details.phone_number }}" required>
-        <select name="gender">
-            <option value="Male" {% if user_details.gender == "Male" %}selected{% endif %}>Male</option>
-            <option value="Female" {% if user_details.gender == "Female" %}selected{% endif %}>Female</option>
-            <option value="Other" {% if user_details.gender == "Other" %}selected{% endif %}>Other</option>
-        </select>
-        <textarea name="address">{{ user_details.address }}</textarea>
-        <button type="submit">Update Profile</button>
-    </form>
-    
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="profile-avatar">
+                <img src="/api/placeholder/100/100" alt="Profile picture">
+                <div class="edit-overlay">
+                    <span>Change Photo</span>
+                </div>
+            </div>
+            <h1>Edit Profile</h1>
+            <p>Update your personal information</p>
+        </div>
+        
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" class="form-control" name="email" value="{{ user.email }}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="text" id="phone" class="form-control" name="phone_number" value="{{ user_details.phone_number }}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender" class="form-control" name="gender">
+                    <option value="Male" {% if user_details.gender == "Male" %}selected{% endif %}>Male</option>
+                    <option value="Female" {% if user_details.gender == "Female" %}selected{% endif %}>Female</option>
+                    <option value="Other" {% if user_details.gender == "Other" %}selected{% endif %}>Other</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="address">Address</label>
+                <textarea id="address" class="form-control" name="address">{{ user_details.address }}</textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">Update Profile</button>
+            <a href="#" class="cancel-link">Cancel</a>
+        </form>
+    </div>
 </body>
 </html>

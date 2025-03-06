@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Irish Grover' rel='stylesheet'>
+    <title>Gallery of Alora</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #e8dad6;
+            color: #f3f4f6;
+        }
+
+        /* New Navigation Bar Styles */
+        .topnav {
+            background-color: black;
+            color: white;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+        }
+
+        .alora {
+            width: 110px;
+            margin-left: 40px;
+            display: flex;
+            padding-top: 10px;
+        }
+
+        .alora h3 {
+            font-family: 'Irish Grover';
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo {
+            width: 30px;
+            height: 30px;
+            margin-left: 5px;
+        }
+
+        .topmenu {
+            width: 550px;
+            margin-right: 500px;
+        }
+
+        .topmenu a {
+            padding: 10px 18px;
+            color: white;
+            text-decoration: none;
+            font-size: large;
+        }
+
+        .topmenu a:hover {
+            background-color: rgb(86, 86, 86);
+        }
+
+        .topmenu a:active {
+            color: rgb(10, 9, 9);
+        }
+
+        /* Toggle Button Styles */
+        .toggle-button {
+            display: none; /* Hide by default */
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+
+        .toggle-button .bar {
+            height: 3px;
+            width: 100%;
+            background-color: white;
+            border-radius: 10px;
+        }
+
+        /* Mobile Navigation Styles */
+        @media (max-width: 768px) {
+            .toggle-button {
+                display: flex; /* Show toggle button on mobile */
+            }
+
+            .topmenu {
+                display: none; /* Hide the menu by default on mobile */
+                flex-direction: column;
+                width: 100%;
+                background-color: black;
+                position: absolute;
+                top: 55px;
+                left: 0;
+                z-index: 1000;
+            }
+
+            .topmenu.active {
+                display: flex; /* Show the menu when active */
+            }
+
+            .topmenu a {
+                padding: 15px;
+                text-align: center;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+        }
+
+        .hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(3, 3, 3, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            max-width: 1300px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            overflow: hidden;
+            border-radius: 0.5rem;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Footer Section */
+        .footer {
+            background-color: #2d2d2d;
+            padding: 3rem 0;
+            margin-top: 2rem;
+        }
+
+        .footer .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .footer .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer .col-md-4 {
+            flex: 1 1 300px;
+        }
+
+        .footer .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .footer p {
+            color: #d1d5db;
+            margin-top: 1rem;
+        }
+
+        .footer h4 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: #f3f4f6;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+                text-align: center;
+                padding: 0 1rem;
+            }
+
+            .footer .row {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- New Navigation Bar -->
+    <div class="topnav">
+        <div class="alora">
+            <h3>ALORA</h3>
+            <img src="{% static 'alora_icon.png' %}" class="logo">
+        </div>
+        <div class="topmenu">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'service' %}">Services</a>
+            <a href="{% url 'aboutus' %}">About</a>
+            <a href="{% url 'gallery' %}">Gallery</a>
+            <a href="{% url 'testimonial' %}">Testimonials</a>
+        </div>
+        <!-- Toggle Button for Mobile -->
+        <div class="toggle-button">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <img src="{% static 'herogallery.png' %}" alt="Hero Image">
+        <div class="hero-overlay">
+            <h1 class="hero-title">GALLERY OF ALORA</h1>
+        </div>
+    </div>
+
+    <!-- Gallery Section -->
+    <div class="gallery">
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="{% static 'img_1.jpg' %}" alt="Wedding Photo 1">
+            </div>
+            <div class="gallery-item">
+                <img src="{% static 'img2.jpeg' %}" alt="Wedding Photo 2">
+            </div>
+            <div class="gallery-item">
+                <img src="{% static 'img3.png' %}" alt="Wedding Photo 3">
+            </div>
+            <div class="gallery-item">
+                <img src="{% static 'img4.png' %}" alt="Wedding Photo 4">
+            </div>
+            <div class="gallery-item">
+                <img src="{% static 'img5.png' %}" alt="Wedding Photo 5">
+            </div>
+            <div class="gallery-item">
+                <img src="{% static 'img6.png' %}" alt="Wedding Photo 6">
+            </div>
+            <div class="gallery-item">
+                <img src="{% static 'img7.png' %}" alt="Wedding Photo 7">
+            </div>
+            <div class="gallery-item">
+                <img src="{% static 'img9.jpeg' %}" alt="Wedding Photo 8">
+            </div>
+            <div class="gallery-item">  
+                <img src="{% static 'img8.jpg' %}" alt="Wedding Photo 9">
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="logo">ALORA</div>
+                    <p class="mt-3">Copyright © Alora Events. All rights reserved.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h4>Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'service' %}">Services</a></li>
+                        <li><a href="{% url 'aboutus' %}">About</a></li>
+                        <li><a href="{% url 'gallery' %}">Gallery</a></li>
+                        <li><a href="{% url 'testimonial' %}">Testimonials</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-links">
+                        <li>✉ aloraevents@gmail.com</li>
+                        <li>📞 Phone: 9633769633</li>
+                        <li>📞 9645757016</li>
+                        <li>📍 37/1143-B Karanthur, Nilambur Rd,2nd Floor, Paradise, Kondotty, Kerala 673638</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Toggle Button -->
+    <script>
+        const toggleButton = document.querySelector('.toggle-button');
+        const topmenu = document.querySelector('.topmenu');
+
+        toggleButton.addEventListener('click', () => {
+            topmenu.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

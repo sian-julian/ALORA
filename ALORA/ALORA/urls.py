@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.index,name='index'),
     path('register/',views.user_register,name='register'),
+    path('home/',views.home,name='home'),
     path('login/',views.user_login,name='login'),
     path('logout/',views.user_logout,name='logout'),
     path('profile/',views.user_profile,name='profile'),
@@ -51,6 +52,11 @@ urlpatterns = [
 
     path('stripe_payments/<int:id>',views.stripe_payments,name='stripe_payments'),
     path('payment_status/<int:id>/',views.payment_status, name='payment_status'),
+
+    path('service',views.service,name='service'),
+    path('aboutus',views.aboutus,name='aboutus'),
+    path('gallery',views.gallery,name='gallery'),
+    path('testimonial',views.testimonial,name='testimonial')
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT) 
