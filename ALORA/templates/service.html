@@ -1,162 +1,255 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alora Events - Let Us Make Your Event Shine</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"  rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Irish Grover' rel='stylesheet'>
     <link rel="stylesheet" href="styles.css"> <!-- External CSS File -->
+    <style>
+        body {
+            background-color: #e8dad6;
+            color: white;
+        }
+
+        .navbar {
+            background-color: black !important;
+        }
+
+        .navbar-nav {
+            margin: auto; /* Centers the navigation items */
+            text-align: center;
+        }
+
+        .navbar-nav .nav-item {
+            display: inline-block; /* Ensures items stay in a row */
+            float: none;
+        }
+
+        .navbar-brand h3 {
+            font-family: 'Irish Grover', cursive;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .navbar-brand img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-size: large;
+            padding: 10px 15px;
+        }
+
+        .navbar-nav .nav-link:hover {
+            background-color: rgb(86, 86, 86);
+        }
+
+        .main-content {
+            background-color: #f2e6e6;
+            padding: 2rem 0;
+        }
+
+        .service-card {
+            position: relative;
+            margin: 0;
+            padding: 0;
+            background: none;
+            border: none;
+            box-shadow: none;
+        }
+
+        .service-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            border: none;
+            border-radius: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .service-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.75rem;
+            text-align: center;
+            color: white;
+            margin: 0;
+        }
+
+        .footer {
+            background-color: #2d2d2d;
+            padding: 3rem 0;
+            margin-top: 2rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: #cccccc;
+        }
+
+        .section-title {
+            color: black;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1rem 0;
+            }
+
+            .service-card {
+                margin-bottom: 0;
+            }
+
+            .container-fluid {
+                padding: 0;
+            }
+        }
+
+        /* New Navigation Bar Styles */
+        .topnav {
+            background-color: black;
+            color: white;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+        }
+
+        .alora {
+            width: 110px;
+            margin-left: 40px;
+            display: flex;
+            padding-top: 10px;
+        }
+
+        .alora h3 {
+            font-family: 'Irish Grover';
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo {
+            width: 30px;
+            height: 30px;
+            margin-left: 5px;
+        }
+
+        .topmenu {
+            width: 550px;
+            margin-right: 500px;
+        }
+
+        .topmenu a {
+            padding: 10px 18px;
+            color: white;
+            text-decoration: none;
+            font-size: large;
+        }
+
+        .topmenu a:hover {
+            background-color: rgb(86, 86, 86);
+        }
+
+        .topmenu a:active {
+            color: rgb(10, 9, 9);
+        }
+
+        /* Toggle Button Styles */
+        .toggle-button {
+            display: none; /* Hide by default */
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+
+        .toggle-button .bar {
+            height: 3px;
+            width: 100%;
+            background-color: white;
+            border-radius: 10px;
+        }
+
+        /* Mobile Navigation Styles */
+        @media (max-width: 768px) {
+            .toggle-button {
+                display: flex; /* Show toggle button on mobile */
+            }
+
+            .topmenu {
+                display: none; /* Hide the menu by default on mobile */
+                flex-direction: column;
+                width: 100%;
+                background-color: black;
+                position: absolute;
+                top: 55px;
+                left: 0;
+                z-index: 1000;
+            }
+
+            .topmenu.active {
+                display: flex; /* Show the menu when active */
+            }
+
+            .topmenu a {
+                padding: 15px;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
-<style>
-    body {
-    background-color: #e8dad6;
-    color: white;
-}
-
-.navbar {
-    background-color: black !important;
-}
-.navbar-nav {
-    margin: auto; /* Centers the navigation items */
-    text-align: center;
-}
-
-.navbar-nav .nav-item {
-    display: inline-block; /* Ensures items stay in a row */
-    float: none;
-}
-
-
-.navbar-brand h3 {
-    font-family: 'Irish Grover', cursive;
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-}
-
-.navbar-brand img {
-    width: 30px;
-    height: 30px;
-}
-
-.navbar-nav .nav-link {
-    color: white !important;
-    font-size: large;
-    padding: 10px 15px;
-}
-
-.navbar-nav .nav-link:hover {
-    background-color: rgb(86, 86, 86);
-}
-
-.main-content {
-    background-color: #f2e6e6;
-    padding: 2rem 0;
-}
-
-.service-card {
-    position: relative;
-    margin: 0;
-    padding: 0;
-    background: none;
-    border: none;
-    box-shadow: none;
-}
-
-.service-card img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    display: block;
-    border: none;
-    border-radius: 0;
-    margin: 0;
-    padding: 0;
-}
-
-.service-label {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 0.75rem;
-    text-align: center;
-    color: white;
-    margin: 0;
-}
-
-.footer {
-    background-color: #2d2d2d;
-    padding: 3rem 0;
-    margin-top: 2rem;
-}
-
-.footer-links {
-    list-style: none;
-    padding: 0;
-}
-
-.footer-links li {
-    margin-bottom: 0.5rem;
-}
-
-.footer-links a {
-    color: white;
-    text-decoration: none;
-}
-
-.footer-links a:hover {
-    color: #cccccc;
-}
-
-.section-title {
-    color: black;
-    text-align: center;
-    margin-bottom: 2rem;
-    font-size: 2rem;
-}
-
-@media (max-width: 768px) {
-    .main-content {
-        padding: 1rem 0;
-    }
-
-    .service-card {
-        margin-bottom: 0;
-    }
-
-    .container-fluid {
-        padding: 0;
-    }
-}
-
-</style>
 <body>
 
-    <!-- Responsive Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="#">
-                <h3 class="mb-0">ALORA</h3>
-                <img src="{% static 'alora_icon.png' %}" class="logo ms-2" alt="Alora Logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'service' %}">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'aboutus' %}">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'gallery' %}">Gallery</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'testimonial' %}">Testimonials</a></li>
-                </ul>
-            </div>
+    <!-- New Navigation Bar -->
+    <div class="topnav">
+        <div class="alora">
+            <h3>ALORA</h3>
+            <img src="{% static 'alora_icon.png' %}" class="logo">
         </div>
-    </nav>
+        <div class="topmenu">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'service' %}">Services</a>
+            <a href="{% url 'aboutus' %}">About</a>
+            <a href="{% url 'gallery' %}">Gallery</a>
+            <a href="{% url 'testimonial' %}">Testimonials</a>
+        </div>
+        <!-- Toggle Button for Mobile -->
+        <div class="toggle-button">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </div>
 
     <!-- Main Content -->
     <div class="main-content">
@@ -183,7 +276,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="service-card">
-                        <img src="{% static 'diningdec.png' %}" alt="Decoration">
+                        <img src="{% static 'group59.png' %}" alt="Decoration">
                         <div class="service-label">DECORATION</div>
                     </div>
                 </div>
@@ -191,7 +284,7 @@
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Footer Section -->
     <footer class="footer">
         <div class="container">
             <div class="row">
@@ -221,6 +314,16 @@
             </div>
         </div>
     </footer>
+
+    <!-- JavaScript for Toggle Button -->
+    <script>
+        const toggleButton = document.querySelector('.toggle-button');
+        const topmenu = document.querySelector('.topmenu');
+
+        toggleButton.addEventListener('click', () => {
+            topmenu.classList.toggle('active');
+        });
+    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
 </body>

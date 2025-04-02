@@ -56,7 +56,7 @@ urlpatterns = [
     path('service',views.service,name='service'),
     path('aboutus',views.aboutus,name='aboutus'),
     path('gallery',views.gallery,name='gallery'),
-    path('testimonial',views.testimonial,name='testimonial')
+    path('testimonial',views.testimonial,name='testimonial'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT) 

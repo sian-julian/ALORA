@@ -1,209 +1,820 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Profile</title>
+    <title>Edit Profile | ALORA</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Irish+Grover&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #e8dad6;
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8d5c8, #e2b0a1);
+            background-attachment: fixed;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-        }
-        
-        .profile-container {
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 500px;
-            padding: 30px;
-            margin: 20px;
-        }
-        
-        .profile-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .profile-header h1 {
-            color: #333;
-            margin-bottom: 5px;
-        }
-        
-        .profile-header p {
-            color: #777;
-            margin-top: 0;
-        }
-        
-        .profile-avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background-color: #f0f0f0;
-            margin: 0 auto 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 4px solid #e8dad6;
-            overflow: hidden;
-            cursor: pointer;
+            margin: 0;
             position: relative;
+            overflow-x: hidden;
         }
-        
-        .profile-avatar img {
+
+        /* Animated background elements */
+        .bg-shapes {
+            position: fixed;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            overflow: hidden;
         }
-        
-        .profile-avatar .edit-overlay {
+
+        .shape {
             position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .shape-1 {
+            width: 80px;
+            height: 80px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            left: 15%;
+            animation-delay: -5s;
+        }
+
+        .shape-3 {
+            width: 60px;
+            height: 60px;
+            top: 30%;
+            right: 10%;
+            animation-delay: -2s;
+        }
+
+        .shape-4 {
+            width: 100px;
+            height: 100px;
+            bottom: 10%;
+            right: 20%;
+            animation-delay: -7s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-15px) rotate(3deg);
+            }
+            50% {
+                transform: translateY(0) rotate(0deg);
+            }
+            75% {
+                transform: translateY(15px) rotate(-3deg);
+            }
+        }
+
+        /* Navbar Styles */
+        .topnav {
+            background: linear-gradient(to right, #2d2d2d, #3d3d3d);
+            color: white;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .alora {
+            width: 130px;
+            margin-left: 20px;
             display: flex;
-            justify-content: center;
             align-items: center;
-            opacity: 0;
-            transition: opacity 0.2s;
         }
-        
-        .profile-avatar:hover .edit-overlay {
-            opacity: 1;
+
+        .alora h3 {
+            font-family: 'Irish Grover', cursive;
+            font-size: 28px;
+            font-weight: bold;
+            margin: 0;
+            background: linear-gradient(45deg, #f8c4b4, #e6a6a6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            letter-spacing: 1px;
         }
-        
-        .profile-avatar .edit-overlay span {
+
+        .logo {
+            width: 35px;
+            height: 35px;
+            margin-left: 8px;
+            filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .topmenu {
+            display: flex;
+            margin-right: 40px;
+        }
+
+        .topmenu a {
+            padding: 10px 18px;
             color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            margin: 0 5px;
+            position: relative;
+        }
+
+        .topmenu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 5px;
+            left: 50%;
+            background: linear-gradient(to right, #f8c4b4, #e6a6a6);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .topmenu a:hover::after {
+            width: 70%;
+        }
+
+        .topmenu a:hover {
+            color: #f8c4b4;
+            transform: translateY(-2px);
+        }
+
+        .topmenu a:active {
+            color: #f8c4b4;
+        }
+
+        .topmenu a i {
+            margin-right: 5px;
+            font-size: 14px;
+        }
+
+        /* Toggle Button Styles */
+        .toggle-button {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+
+        .toggle-button .bar {
+            height: 3px;
+            width: 100%;
+            background-color: white;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        /* Profile Container Styles */
+        .container {
+            width: 90%;
+            max-width: 900px;
+            background: #ce8667(89, 81, 67, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            border-radius: 20px;
+            box-shadow: 0px 25px 50px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            margin-top: 120px;
+            margin-bottom: 40px;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Left Panel */
+        .left-panel {
+            width: 35%;
+            background: linear-gradient(135deg, #ce8667, #c1a599);
+            padding: 40px 25px;
+            position: relative;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .left-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='rgba(255,255,255,0.1)' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+
+        .panel-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .welcome-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .welcome-icon i {
+            font-size: 30px;
+            color: white;
+        }
+
+        .welcome-section h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 10px;
+            color: rgb(9, 4, 4);
+            
+        }
+
+        .welcome-section p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.5;
+            margin-bottom: 100px;
+        }
+
+        .user-info {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 10px;
+        }
+
+        .user-info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .user-info-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .user-info-item:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .user-info-item i {
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: white;
+            font-size: 14px;
+        }
+
+        .info-text {
+            color: white;
+            font-size: 14px;
+        }
+
+        .info-text span {
+            display: block;
+            opacity: 0.8;
             font-size: 12px;
+            margin-top: 2px;
         }
-        
+
+        /* Right Panel */
+        .right-panel {
+            width: 65%;
+            padding: 40px;
+            background: white;
+        }
+
+        .section-title {
+            position: relative;
+            margin-bottom: 30px;
+            padding-bottom: 12px;
+            color: #333;
+            font-weight: 600;
+            font-size: 22px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 3px;
+            width: 70px;
+            background: linear-gradient(to right, #ce8667, #c1a599);
+            border-radius: 2px;
+        }
+
+        .alert {
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            border: none;
+        }
+
+        .alert i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .alert-success {
+            background-color: rgba(209, 231, 221, 0.5);
+            border-left: 4px solid #0f5132;
+            color: #0f5132;
+        }
+
+        .alert-danger {
+            background-color: rgba(248, 215, 218, 0.5);
+            border-left: 4px solid #842029;
+            color: #842029;
+        }
+
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            transition: all 0.3s ease;
         }
-        
+
+        .form-group:hover .form-control {
+            border-color: #ce8667;
+            background-color: #fff9f7;
+        }
+
         .form-group label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 10px;
             color: #555;
             font-weight: 500;
+            font-size: 15px;
         }
-        
+
         .form-control {
             width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 14px;
-            transition: border 0.3s;
-            box-sizing: border-box;
+            padding: 14px 15px 14px 45px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background-color: #f9f9f9;
+            color: #444;
         }
-        
+
+        .form-group i.input-icon {
+            position: absolute;
+            left: 15px;
+            top: 44px;
+            color: #ce8667;
+            font-size: 18px;
+        }
+
         .form-control:focus {
-            border-color: #c1a599;
-            outline: none;
+            border-color: #ce8667;
+            box-shadow: 0 0 0 3px rgba(206, 134, 103, 0.2);
+            background-color: #fff;
         }
-        
-        select.form-control {
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            background-size: 16px;
-            padding-right: 40px;
-        }
-        
+
         textarea.form-control {
             min-height: 100px;
             resize: vertical;
         }
-        
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 35px;
+        }
+
         .submit-btn {
-            background-color: #ce8667;
+            background: linear-gradient(45deg, #ce8667, #c1a599);
             color: white;
             border: none;
-            border-radius: 6px;
-            padding: 14px 25px;
+            border-radius: 10px;
+            padding: 15px 25px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
+            flex: 2;
+            transition: all 0.3s;
+            box-shadow: 0 6px 15px rgba(206, 134, 103, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
             width: 100%;
-            transition: background-color 0.3s;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.5s;
         }
-        
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
         .submit-btn:hover {
-            background-color: #b09185;
+            background: linear-gradient(45deg, #b87559, #a78e85);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(206, 134, 103, 0.4);
         }
-        
-        .cancel-link {
-            display: block;
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .cancel-btn {
+            background: #f5f5f5;
+            color: #666;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px 20px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            flex: 1;
+            transition: all 0.3s;
             text-align: center;
-            margin-top: 15px;
-            color: #777;
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         }
-        
-        .cancel-link:hover {
-            text-decoration: underline;
+
+        .cancel-btn:hover {
+            background: #e8e8e8;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
         }
-        
-        @media (max-width: 480px) {
-            .profile-container {
-                padding: 20px;
+
+        .form-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 35px;
+        }
+
+        .form-icon {
+            background: linear-gradient(135deg, #ce8667, #c1a599);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            box-shadow: 0 10px 20px rgba(206, 134, 103, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-icon::after {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: linear-gradient(transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: rotate(45deg);
+            top: -50%;
+            left: -50%;
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                top: -50%;
+                left: -50%;
             }
+            100% {
+                top: 150%;
+                left: 150%;
+            }
+        }
+
+        .form-icon i {
+            color: white;
+            font-size: 22px;
+        }
+
+        /* Mobile Navigation Styles */
+        @media (max-width: 992px) {
+            .topmenu {
+                margin-right: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .toggle-button {
+                display: flex;
+            }
+
+            .topmenu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: rgba(40, 40, 40, 0.95);
+                position: absolute;
+                top: 70px;
+                left: 0;
+                padding: 10px 0;
+                z-index: 1000;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            }
+
+            .topmenu.active {
+                display: flex;
+            }
+
+            .topmenu a {
+                padding: 15px;
+                text-align: center;
+                margin: 5px 15px;
+                border-radius: 8px;
+                background: rgba(255, 255, 255, 0.05);
+            }
+
+            .topmenu a::after {
+                display: none;
+            }
+
+            .container {
+                flex-direction: column;
+                margin-top: 90px;
+            }
+
+            .left-panel, .right-panel {
+                width: 100%;
+            }
+
+            .left-panel {
+                padding: 30px 20px;
+            }
+
+            .right-panel {
+                padding: 30px 20px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .submit-btn, .cancel-btn {
+                width: 100%;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            animation: fadeIn 0.8s ease-out;
         }
     </style>
 </head>
 <body>
-    <div class="profile-container">
-        <div class="profile-header">
-            <div class="profile-avatar">
-                <img src="/api/placeholder/100/100" alt="Profile picture">
-                <div class="edit-overlay">
-                    <span>Change Photo</span>
+    <!-- Background Shapes -->
+    <div class="bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+    </div>
+
+    
+
+    <!-- Profile Container -->
+    <div class="container">
+        <!-- Left Panel -->
+        <div class="left-panel">
+            <div class="panel-content">
+                <div class="welcome-section">
+                
+                    <h3>Hello, {{ user.username }}!</h3>
+                    <p>Update your profile information below to keep your account current.</p>
+                </div>
+                
+                <div class="user-info">
+                    <div class="user-info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div class="info-text">
+                            {{ user.email }}
+                            <span>Email Address</span>
+                        </div>
+                    </div>
+                    <div class="user-info-item">
+                        <i class="fas fa-phone"></i>
+                        <div class="info-text">
+                            {{ user_details.phone_number }}
+                            <span>Phone Number</span>
+                        </div>
+                    </div>
+                    <div class="user-info-item">
+                        <i class="fas fa-venus-mars"></i>
+                        <div class="info-text">
+                            {{ user_details.gender }}
+                            <span>Gender</span>
+                        </div>
+                    </div>
+                    <div class="user-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div class="info-text">
+                            {{ user_details.address|truncatechars:15 }}
+                            <span>Current Address</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <h1>Edit Profile</h1>
-            <p>Update your personal information</p>
         </div>
-        
-        <form method="POST">
-            {% csrf_token %}
-            
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" class="form-control" name="email" value="{{ user.email }}" required>
+
+        <!-- Right Panel -->
+        <div class="right-panel">
+            <div class="form-header">
+                <div class="form-icon">
+                    <i class="fas fa-user-edit"></i>
+                </div>
+                <h2 class="section-title">Edit Your Profile</h2>
             </div>
-            
-            <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input type="text" id="phone" class="form-control" name="phone_number" value="{{ user_details.phone_number }}" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="gender">Gender</label>
-                <select id="gender" class="form-control" name="gender">
-                    <option value="Male" {% if user_details.gender == "Male" %}selected{% endif %}>Male</option>
-                    <option value="Female" {% if user_details.gender == "Female" %}selected{% endif %}>Female</option>
-                    <option value="Other" {% if user_details.gender == "Other" %}selected{% endif %}>Other</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="address">Address</label>
-                <textarea id="address" class="form-control" name="address">{{ user_details.address }}</textarea>
-            </div>
-            
-            <button type="submit" class="submit-btn">Update Profile</button>
-            <a href="#" class="cancel-link">Cancel</a>
-        </form>
+
+            {% if success_message %}
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle"></i> {{ success_message }}
+                </div>
+            {% endif %}
+            {% if error_message %}
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-circle"></i> {{ error_message }}
+                </div>
+            {% endif %}
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <!-- <div class="form-group">
+                    <label for="username">Name</label>
+                    <i class="fas fa-user input-icon"></i>
+                    <input type="text" id="username" class="form-control" name="name" value="{{ user_details.user_id.username }}" required>
+                </div> -->
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <i class="fas fa-envelope input-icon"></i>
+                    <input type="email" id="email" class="form-control" name="email" value="{{ user.email }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone_number">Phone Number</label>
+                    <i class="fas fa-phone input-icon"></i>
+                    <input type="text" id="phone_number" class="form-control" name="phone_number" value="{{ user_details.phone_number }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <i class="fas fa-venus-mars input-icon"></i>
+                    <select id="gender" class="form-control" name="gender">
+                        <option value="Male" {% if user_details.gender == "Male" %}selected{% endif %}>Male</option>
+                        <option value="Female" {% if user_details.gender == "Female" %}selected{% endif %}>Female</option>
+                        <option value="Other" {% if user_details.gender == "Other" %}selected{% endif %}>Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <i class="fas fa-map-marker-alt input-icon"></i>
+                    <textarea id="address" class="form-control" name="address" required>{{ user_details.address }}</textarea>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-save"></i> Update Profile
+                    </button>
+                    <a href="{% url 'profile' %}" class="cancel-btn">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
     </div>
+
+    <!-- JavaScript for Toggle Button -->
+    <script>
+        const toggleButton = document.querySelector('.toggle-button');
+        const topmenu = document.querySelector('.topmenu');
+
+        toggleButton.addEventListener('click', () => {
+            topmenu.classList.toggle('active');
+        });
+
+        // Add staggered animation to form elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const formElements = document.querySelectorAll('.form-group');
+            formElements.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateX(20px)';
+                element.style.transition = 'all 0.4s ease';
+                
+                setTimeout(() => {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateX(0)';
+                }, 200 + (index * 120));
+            });
+
+            // Also animate the user info items
+            const userInfoItems = document.querySelectorAll('.user-info-item');
+            userInfoItems.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'all 0.4s ease';
+                
+                setTimeout(() => {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, 400 + (index * 120));
+            });
+        });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

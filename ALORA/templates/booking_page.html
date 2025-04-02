@@ -214,19 +214,19 @@
         <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
             <ul class="navbar-nav text-center ms-3 custom-navbar">
                 <li class="nav-item">
-                    <a class="nav-link" href="#Home">Home</a>
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#services">Services</a>
+                    <a class="nav-link" href="{% url 'service' %}">Services</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#About">About</a>
+                    <a class="nav-link" href="{% url 'aboutus' %}">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#Gallery">Gallery</a>
+                    <a class="nav-link" href="{% url 'gallery' %}">Gallery</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#testimony">Testimonials</a>
+                    <a class="nav-link" href="{% url 'testimonial' %}">Testimonials</a>
                 </li>
             </ul>
         </div>
@@ -295,6 +295,11 @@
                                 {% endfor %}
                             </select>
                         </div>
+                        <div class="mb-3">
+                            <label for="no_of_persons" class="form-label">Number of Persons:</label>
+                            <input type="number" id="no_of_persons" name="no_of_persons" class="form-control" min="1" required>
+                        </div>
+                        
 
                         <div class="mb-3">
                             <label for="decoration" class="form-label">Select Decoration (Optional):</label>
@@ -330,11 +335,11 @@
                 <div class="footer-section">
                     <div class="footer-title">Links</div>
                     <ul class="footer-links">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Services</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Gallery</a></li>
-                        <li><a href="#">Testimonials</a></li>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'service' %}">Services</a></li>
+                        <li><a href="{% url 'aboutus' %}">About</a></li>
+                        <li><a href="{% url 'gallery' %}">Gallery</a></li>
+                        <li><a href="{% url 'testimonial' %}">Testimonials</a></li>
                     </ul>
                 </div>
                 

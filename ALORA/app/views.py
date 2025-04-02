@@ -15,7 +15,7 @@ from django.conf import settings
 def index(request):
     return render(request,'index.html')
 
-@login_required(login_url='login')
+
 def home(request):
     return render(request,'home.html')
 
@@ -407,6 +407,10 @@ def gallery(request):
 
 def testimonial(request):
     return render(request,'testimonial.html')
+
+
+
+
 
 
 
