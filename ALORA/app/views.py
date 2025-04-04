@@ -141,7 +141,11 @@ def add_hall(request):
         capacity=request.POST['capacity']
         price_per_day=request.POST['price_per_day']
         description=request.POST.get('description', '')
-        photo=request.FILES['photo']
+        photo=request.FILES.get('photo',None)
+
+        if not photo:
+            messages.error(request, "Please upload a hall photo.")
+            return redirect('add_hall')
 
         obj=Halls.objects.create(name=name,location=location,capacity=capacity,price_per_day=price_per_day,description=description,photo_url=photo,)
         obj.save()
@@ -149,6 +153,51 @@ def add_hall(request):
         return redirect('hall_details')
     
     return render(request,'add_hall.html')
+
+
+@login_required(login_url='login')
+def update_hall(request, hall_id):
+    hall = get_object_or_404(Halls, id=hall_id)
+
+    if not request.user.is_staff:
+        messages.error(request, "You are not authorized to perform this action.")
+        return redirect('hall_details')
+
+    if request.method == 'POST':
+        hall.name = request.POST['name']
+        hall.location = request.POST['location']
+        hall.capacity = request.POST['capacity']                                    #extra added
+        hall.price_per_day = request.POST['price_per_day']
+        hall.description = request.POST.get('description', '')
+
+        if 'photo' in request.FILES:
+            hall.photo_url = request.FILES['photo']
+
+        hall.save()
+        messages.success(request, "Hall updated successfully!")
+        return redirect('hall_details')
+
+    return render(request, 'update_hall.html', {'hall': hall})
+
+@login_required(login_url='login')
+def hall_detail_view(request, hall_id):
+    hall = get_object_or_404(Halls, id=hall_id)
+    return render(request, 'view_hall_detail.html', {'hall': hall})
+
+@login_required(login_url='login')
+def delete_hall(request, hall_id):
+    if not request.user.is_staff:
+        messages.error(request, "You are not authorized to perform this action.")
+        return redirect('hall_details')
+
+    hall = get_object_or_404(Halls, id=hall_id)
+    hall.delete()  # This deletes the hall and all its related data.
+    
+    messages.success(request, "Hall deleted successfully!")
+    return redirect('hall_details')
+
+#above code is full hall related
+
 
 @login_required(login_url='login')
 def food_details(request):
@@ -172,6 +221,28 @@ def add_food(request):
         return redirect('food_details')
     
     return render(request,'add_food.html')
+
+
+@login_required(login_url='login')
+def update_food(request, food_id):
+    if not request.user.is_staff:
+        messages.error(request, "You are not authorized to perform this action.")
+        return redirect('admin_dash')
+
+    food = get_object_or_404(Food, id=food_id)
+
+    if request.method == 'POST':
+        food.food_name = request.POST['food_name']
+        food.food_price = request.POST['food_price']
+        if 'food_image' in request.FILES:
+            food.food_image = request.FILES['food_image']
+        food.save()
+        messages.success(request, "Food item updated successfully!")
+        return redirect('food_details')
+
+    return render(request, 'update_food.html', {'food': food})
+
+#above code is related to food
 
 #----passwords-----
 def send_otp(email):
@@ -273,6 +344,30 @@ def add_decoration(request):
         return redirect('decoration_details')
     
     return render(request,'add_decoration.html')
+
+
+@login_required(login_url='login')
+def update_decoration(request, id):
+    if not request.user.is_staff:
+        messages.error(request, "You are not authorized to perform this action.")
+        return redirect('admin_dash')
+    
+    decoration = get_object_or_404(Decoration, id=id)
+
+    if request.method == 'POST':
+        decoration.decoration_name = request.POST['decoration_name']
+        decoration.decoration_price = request.POST['decoration_price']
+
+        if 'decoration_image' in request.FILES:
+            decoration.decoration_image = request.FILES['decoration_image']
+        
+        decoration.save()
+        messages.success(request, "Decoration updated successfully!")
+        return redirect('decoration_details')
+
+    return render(request, 'update_decoration.html', {'decoration': decoration})
+
+#above code is decoration related
 
 @login_required(login_url='login')
 def admin_view_booking(request):

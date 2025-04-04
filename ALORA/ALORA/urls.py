@@ -57,6 +57,17 @@ urlpatterns = [
     path('aboutus',views.aboutus,name='aboutus'),
     path('gallery',views.gallery,name='gallery'),
     path('testimonial',views.testimonial,name='testimonial'),
+
+    path('update_hall/<int:hall_id>/',views.update_hall,name='update_hall'),
+    path('view_hall/<int:hall_id>/',views.hall_detail_view,name='view_hall'),
+    path('delete_hall/<int:hall_id>/',views.delete_hall,name='delete_hall'),
+
+    path('update_food/<int:food_id>/',views.update_food,name='update_food'),
+
+    path('update_decoration/<int:id>/',views.update_decoration,name='update_decoration'),
+
+
+ 
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT) 
