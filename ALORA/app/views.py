@@ -367,6 +367,19 @@ def update_decoration(request, id):
 
     return render(request, 'update_decoration.html', {'decoration': decoration})
 
+
+@login_required(login_url='login')
+def delete_decoration(request, id):
+    if not request.user.is_staff:
+        messages.error(request, "You are not authorized to perform this action.")
+        return redirect('admin_dash')
+
+    decoration = get_object_or_404(Decoration, id=id)
+    decoration.delete()
+    messages.success(request, "Decoration deleted successfully!")
+    return redirect('decoration_details')
+
+
 #above code is decoration related
 
 @login_required(login_url='login')
@@ -387,6 +400,11 @@ def accept_reject_booking(request,id):
         data.save()
         return redirect(admin_view_booking)
     return redirect(admin_view_booking)
+
+@login_required(login_url='login')
+def booking_detail(request, id):
+    booking = get_object_or_404(Bookings.objects.select_related('user_id', 'hall_id', 'food', 'decoration'), id=id)
+    return render(request, 'booking_detail_.html', {'booking': booking})
 
 
 

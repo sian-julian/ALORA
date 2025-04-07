@@ -7,7 +7,7 @@
     <title>Admin Dashboard | ALORA</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Irish Grover' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             background-color: #e8dad6;
@@ -167,6 +167,112 @@
             border-radius: 5px;
         }
 
+        /* Custom Delete Modal Styling */
+        .delete-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0}
+            to {opacity: 1}
+        }
+
+        .delete-modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 0;
+            border-radius: 12px;
+            width: 400px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+            animation: slideIn 0.4s;
+        }
+
+        @keyframes slideIn {
+            from {transform: translateY(-50px); opacity: 0;}
+            to {transform: translateY(0); opacity: 1;}
+        }
+
+        .delete-modal-header {
+            padding: 20px;
+            background-color: #2d2d2d;
+            color: white;
+            border-radius: 12px 12px 0 0;
+            text-align: center;
+        }
+
+        .delete-modal-header h3 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .delete-modal-body {
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .delete-modal-icon {
+            font-size: 50px;
+            color: #dc3545;
+            margin-bottom: 15px;
+        }
+
+        .delete-modal-message {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .delete-modal-hall-name {
+            font-weight: bold;
+            color: #dc3545;
+        }
+
+        .delete-modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 0 20px 20px 20px;
+        }
+
+        .delete-btn-cancel {
+            padding: 10px 20px;
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex-grow: 1;
+        }
+
+        .delete-btn-cancel:hover {
+            background-color: #5a6268;
+        }
+
+        .delete-btn-confirm {
+            padding: 10px 20px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex-grow: 1;
+        }
+
+        .delete-btn-confirm:hover {
+            background-color: #c82333;
+        }
+
         /* Responsive Styles */
         @media (max-width: 768px) {
             .sidebar {
@@ -203,6 +309,10 @@
             .logout-btn {
                 width: 100%;
                 text-align: center;
+            }
+
+            .delete-modal-content {
+                width: 90%;
             }
         }
 
@@ -297,7 +407,7 @@
                         <!-- <td><img src="{{ hall.photo_url.url }}" alt="{{ hall.name }}"></td> -->
                         <td>
                             <a href="{% url 'update_hall' hall.id %}" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="{% url 'delete_hall' hall.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this hall?');">
+                            <a href="#" class="btn btn-danger btn-sm" onclick="openDeleteModal('{{ hall.id }}', '{{ hall.name }}');">
                                 Delete
                             </a>
                             <a href="{% url 'view_hall' hall.id %}" class="btn btn-info btn-sm" title="View Hall Details">
@@ -311,6 +421,45 @@
         </div>
     </div>
 
+    <!-- Custom Delete Confirmation Modal -->
+    <div id="deleteModal" class="delete-modal">
+        <div class="delete-modal-content">
+            <div class="delete-modal-header">
+                <h3>Confirm Deletion</h3>
+            </div>
+            <div class="delete-modal-body">
+                <div class="delete-modal-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <p class="delete-modal-message">Are you sure you want to delete Hall <span id="hallName" class="delete-modal-hall-name"></span>?</p>
+                <p>This action cannot be undone.</p>
+            </div>
+            <div class="delete-modal-buttons">
+                <button class="delete-btn-cancel" onclick="closeDeleteModal()">Cancel</button>
+                <a id="confirmDeleteBtn" href="#" class="delete-btn-confirm">Delete</a>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function openDeleteModal(hallId, hallName) {
+            document.getElementById('hallName').textContent = hallName;
+            document.getElementById('confirmDeleteBtn').href = "{% url 'delete_hall' 0 %}".replace('0', hallId);
+            document.getElementById('deleteModal').style.display = 'block';
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').style.display = 'none';
+        }
+
+        // Close modal if user clicks outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('deleteModal');
+            if (event.target === modal) {
+                closeDeleteModal();
+            }
+        }
+    </script>
 </body>
 </html>

@@ -38,8 +38,11 @@ urlpatterns = [
     path('add_food/',views.add_food,name='add_food'),
     path('decoration_details/',views.decoration_details,name='decoration_details'),
     path('add_decoration',views.add_decoration,name='add_decoration'),
+
     path('adminviewbooking/',views.admin_view_booking,name='admin_view_booking'),
     path('adminacceptreject/<int:id>/',views.accept_reject_booking,name='acceptrejectbooking'),
+    path('booking_detail/<int:id>/', views.booking_detail, name='booking_detail'),
+
 
 
     path('resetpassword',views.password_reset_request,name='resetpassword'),
@@ -65,6 +68,7 @@ urlpatterns = [
     path('update_food/<int:food_id>/',views.update_food,name='update_food'),
 
     path('update_decoration/<int:id>/',views.update_decoration,name='update_decoration'),
+    path('delete_decoration/<int:id>/', views.delete_decoration, name='delete_decoration'),
 
 
  

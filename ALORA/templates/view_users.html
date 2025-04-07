@@ -7,6 +7,7 @@
     <title>View Users | ALORA</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Irish Grover" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             background-color: #e8dad6;
@@ -147,6 +148,172 @@
             background-color: #3d3d3d;
         }
 
+        /* Styles for eye button from friend's code */
+        .eye-btn {
+            background: none;
+            border: none;
+            color: #6c757d;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 50%;
+        }
+
+        .eye-btn:hover {
+            background-color: #f0f0f0;
+            color: #2d2d2d;
+            transform: scale(1.1);
+        }
+
+        .eye-btn.active {
+            color: #2d2d2d;
+            background-color: #f0f0f0;
+        }
+
+        .hidden-details {
+            display: none;
+            background-color: #f9f9f9;
+        }
+
+        .details-content {
+            padding: 15px;
+            background-color: #e8dad6;
+            border-radius: 5px;
+            margin-top: 5px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .detail-item {
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            overflow: hidden;
+        }
+
+        .detail-label {
+            font-weight: bold;
+            color: #6c757d;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            color: #2d2d2d;
+            font-size: 14px;
+        }
+
+        /* Pagination styles from friend's code */
+        .pagination-controls {
+            background-color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        
+        .showing-entries {
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Search Box Styles */
+        .search-container {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box {
+            flex-grow: 1;
+            padding: 10px 15px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.15s ease-in-out;
+        }
+
+        .search-box:focus {
+            border-color: #2d2d2d;
+            outline: none;
+        }
+
+        .search-icon {
+            position: relative;
+            right: 30px;
+            color: #6c757d;
+        }
+
+        /* Pagination Numbered Button Styles */
+        .pagination {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .pagination li {
+            margin: 0 2px;
+        }
+
+        .pagination a, .pagination .page-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 32px;
+            height: 32px;
+            padding: 0 6px;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            color: #2d2d2d;
+            text-decoration: none;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+
+        .pagination a:hover, .pagination .page-link:hover {
+            background-color: #e9ecef;
+            border-color: #dee2e6;
+            color: #2d2d2d;
+        }
+
+        .pagination .active a, .pagination .active .page-link {
+            background-color: #2d2d2d;
+            border-color: #2d2d2d;
+            color: #ffffff;
+        }
+
+        .pagination .disabled a, .pagination .disabled .page-link {
+            color: #6c757d;
+            pointer-events: none;
+            background-color: #f8f9fa;
+            border-color: #dee2e6;
+        }
+
+        .no-results {
+            padding: 20px;
+            text-align: center;
+            color: #6c757d;
+            font-style: italic;
+        }
+
         /* Responsive Styles */
         @media (max-width: 768px) {
             .sidebar {
@@ -189,6 +356,24 @@
                 padding: 8px;
                 font-size: 12px;
             }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pagination-controls {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .search-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-box {
+                margin-bottom: 10px;
+            }
         }
 
         @media (max-width: 576px) {
@@ -215,6 +400,12 @@
                 padding: 6px;
                 font-size: 10px;
             }
+            
+            .pagination li a, .pagination li .page-link {
+                min-width: 28px;
+                height: 28px;
+                font-size: 12px;
+            }
         }
     </style>
 </head>
@@ -227,12 +418,24 @@
             <img src="{% static 'alora_icon.png' %}" alt="Light Bulb" class="logo-image">
         </div>
         <nav class="nav flex-column">
-            <a class="nav-link" href="{% url 'admin_dash' %}">Home</a>
-            <a class="nav-link active" href="{% url 'view_users' %}">View Users</a>
-            <a class="nav-link" href="{% url 'hall_details' %}">Hall Details</a>
-            <a class="nav-link" href="{% url 'food_details' %}">Food Details</a>
-            <a class="nav-link" href="{% url 'decoration_details' %}">Decoration Details</a>
-            <a class="nav-link" href="{% url 'admin_view_booking' %}">View Bookings</a>
+            <a class="nav-link" href="{% url 'admin_dash' %}">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a class="nav-link active" href="{% url 'view_users' %}">
+                <i class="fas fa-users"></i> View Users
+            </a>
+            <a class="nav-link" href="{% url 'hall_details' %}">
+                <i class="fas fa-building"></i> Hall Details
+            </a>
+            <a class="nav-link" href="{% url 'food_details' %}">
+                <i class="fas fa-utensils"></i> Food Details
+            </a>
+            <a class="nav-link" href="{% url 'decoration_details' %}">
+                <i class="fas fa-paint-brush"></i> Decoration Details
+            </a>
+            <a class="nav-link" href="{% url 'admin_view_booking' %}">
+                <i class="fas fa-calendar-check"></i> View Bookings
+            </a>
         </nav>
     </div>
 
@@ -240,7 +443,7 @@
     <div class="main-content">
         <div class="top-nav">
             <div class="welcome-section">
-                <h2>Welcome, Admin</h2>
+                <h2>Admin Dashboard</h2>
             </div>
             <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
         </div>
@@ -248,31 +451,255 @@
         <!-- Users Table -->
         <div class="users-table">
             <h1>Registered Users</h1>
-            <table>
+            
+            <!-- Search Box -->
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-box" placeholder="Search by username or email...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            
+            <table id="usersTable">
                 <thead>
                     <tr>
+                        <th>Sl No</th>
                         <th>Username</th>
                         <th>Email</th>
-                        <th>Phone Number</th>
-                        <th>Gender</th>
-                        <th>Address</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for user in users %}
-                        <tr>
+                        <tr class="user-row">
+                            <td>{{ forloop.counter }}</td>
                             <td>{{ user.user_id.username }}</td>
                             <td>{{ user.user_id.email }}</td>
-                            <td>{{ user.phone_number }}</td>
-                            <td>{{ user.gender }}</td>
-                            <td>{{ user.address }}</td>
+                            <td>
+                                <button class="eye-btn" onclick="toggleDetails(this, 'details-{{ forloop.counter }}')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="hidden-details" id="details-{{ forloop.counter }}">
+                            <td colspan="5">
+                                <div class="details-content">
+                                    <div class="details-grid">
+                                        <div class="detail-item">
+                                            <div class="detail-label">NAME</div>
+                                            <div class="detail-value">{{ user.user_id.username }}</div>
+                                        </div>
+                                        <div class="detail-item">
+                                            <div class="detail-label">Phone Number</div>
+                                            <div class="detail-value">{{ user.phone_number }}</div>
+                                        </div>
+                                        <div class="detail-item">
+                                            <div class="detail-label">Gender</div>
+                                            <div class="detail-value">{{ user.gender }}</div>
+                                        </div>
+                                        <div class="detail-item">
+                                            <div class="detail-label">Address</div>
+                                            <div class="detail-value">{{ user.address }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
+            
+            <!-- No Results Message -->
+            <div id="noResults" class="no-results" style="display: none;">
+                No users match your search criteria.
+            </div>
+
+            <!-- Pagination Controls -->
+            <div class="pagination-controls">
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                    <div class="showing-entries mb-2 mb-md-0">
+                        Showing <span id="start-entry">1</span> to <span id="end-entry">10</span> of <span id="total-entries">{{ users|length }}</span> entries
+                    </div>
+                    <nav aria-label="User table pagination">
+                        <ul class="pagination" id="pagination">
+                            <li class="page-item disabled" id="prev-page-li">
+                                <a class="page-link" href="#" id="prev-page" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <!-- Page numbers will be inserted here by JavaScript -->
+                            <li class="page-item" id="next-page-li">
+                                <a class="page-link" href="#" id="next-page" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Toggle details function
+        function toggleDetails(button, detailsId) {
+            const detailsRow = document.getElementById(detailsId);
+            const icon = button.querySelector('i');
+            
+            if (detailsRow.style.display === 'none' || !detailsRow.style.display) {
+                // Show details
+                detailsRow.style.display = 'table-row';
+                button.classList.add('active');
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                // Hide details
+                detailsRow.style.display = 'none';
+                button.classList.remove('active');
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // Enhanced Client-side pagination and search functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const rowsPerPage = 10;
+            const tableBody = document.querySelector('#usersTable tbody');
+            const userRows = Array.from(document.querySelectorAll('.users-table tbody tr.user-row'));
+            const detailRows = Array.from(document.querySelectorAll('.users-table tbody tr.hidden-details'));
+            let totalRows = userRows.length;
+            let filteredRows = userRows;
+            let totalPages = Math.ceil(totalRows / rowsPerPage);
+            let currentPage = 1;
+            
+            const searchInput = document.getElementById('searchInput');
+            const noResultsMsg = document.getElementById('noResults');
+            const paginationContainer = document.getElementById('pagination');
+            
+            // Create page number buttons
+            function createPaginationButtons() {
+                // Clear existing page number buttons
+                const pageButtons = paginationContainer.querySelectorAll('.page-number');
+                pageButtons.forEach(btn => btn.remove());
+                
+                // Get next page button reference
+                const nextPageLi = document.getElementById('next-page-li');
+                
+                // Calculate range of pages to show
+                let startPage = Math.max(1, currentPage - 2);
+                let endPage = Math.min(totalPages, currentPage + 2);
+                
+                // Ensure we always show at least 5 pages when possible
+                if (endPage - startPage < 4 && totalPages > 5) {
+                    if (currentPage < 3) {
+                        endPage = Math.min(5, totalPages);
+                    } else if (currentPage > totalPages - 2) {
+                        startPage = Math.max(1, totalPages - 4);
+                    }
+                }
+                
+                // Create page number buttons
+                for (let i = startPage; i <= endPage; i++) {
+                    const li = document.createElement('li');
+                    li.className = `page-item page-number ${i === currentPage ? 'active' : ''}`;
+                    
+                    const a = document.createElement('a');
+                    a.className = 'page-link';
+                    a.href = '#';
+                    a.textContent = i;
+                    a.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        currentPage = i;
+                        updateDisplay();
+                    });
+                    
+                    li.appendChild(a);
+                    paginationContainer.insertBefore(li, nextPageLi);
+                }
+            }
+            
+            // Update display based on current page and search filter
+            function updateDisplay() {
+                const startIndex = (currentPage - 1) * rowsPerPage;
+                const endIndex = Math.min(startIndex + rowsPerPage, filteredRows.length);
+                
+                // Hide all rows first
+                userRows.forEach(row => row.style.display = 'none');
+                detailRows.forEach(row => row.style.display = 'none');
+                
+                // Show only rows for current page
+                if (filteredRows.length > 0) {
+                    for (let i = startIndex; i < endIndex; i++) {
+                        filteredRows[i].style.display = '';
+                    }
+                    
+                    noResultsMsg.style.display = 'none';
+                } else {
+                    noResultsMsg.style.display = '';
+                }
+                
+                // Update pagination controls
+                document.getElementById('start-entry').textContent = filteredRows.length > 0 ? startIndex + 1 : 0;
+                document.getElementById('end-entry').textContent = endIndex;
+                document.getElementById('total-entries').textContent = filteredRows.length;
+                
+                // Update pagination buttons
+                document.getElementById('prev-page-li').classList.toggle('disabled', currentPage === 1);
+                document.getElementById('next-page-li').classList.toggle('disabled', currentPage === totalPages || totalPages === 0);
+                
+                // Update page number buttons
+                createPaginationButtons();
+                
+                // Reset all eye buttons to closed state
+                document.querySelectorAll('.eye-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    const icon = btn.querySelector('i');
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                });
+            }
+            
+            // Filter table based on search input
+            function filterTable() {
+                const searchTerm = searchInput.value.toLowerCase();
+                
+                if (searchTerm === '') {
+                    filteredRows = userRows;
+                } else {
+                    filteredRows = userRows.filter(row => {
+                        const username = row.cells[1].textContent.toLowerCase();
+                        const email = row.cells[2].textContent.toLowerCase();
+                        return username.includes(searchTerm) || email.includes(searchTerm);
+                    });
+                }
+                
+                totalPages = Math.max(1, Math.ceil(filteredRows.length / rowsPerPage));
+                currentPage = 1; // Reset to first page on new search
+                updateDisplay();
+            }
+            
+            // Event listeners for pagination buttons
+            document.getElementById('prev-page').addEventListener('click', function(e) {
+                e.preventDefault();
+                if (currentPage > 1) {
+                    currentPage--;
+                    updateDisplay();
+                }
+            });
+            
+            document.getElementById('next-page').addEventListener('click', function(e) {
+                e.preventDefault();
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    updateDisplay();
+                }
+            });
+            
+            // Event listener for search box
+            searchInput.addEventListener('input', filterTable);
+            
+            // Initialize pagination
+            updateDisplay();
+        });
+    </script>
 </body>
 </html>

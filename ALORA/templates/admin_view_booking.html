@@ -7,6 +7,7 @@
     <title>Admin Dashboard | ALORA</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Irish Grover' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             background-color: #e8dad6;
@@ -94,30 +95,50 @@
             color: white;
         }
 
-        /* Booking Table Styling */
+        /* Enhanced Booking Table Styling */
         .booking-table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
             margin-top: 20px;
             background-color: white;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
         }
 
         .booking-table th, .booking-table td {
-            padding: 12px;
+            padding: 15px;
             text-align: center;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #eaeaea;
         }
 
         .booking-table th {
             background-color: #2d2d2d;
             color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        .booking-table tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
 
         .booking-table tr:hover {
-            background-color: #f5f5f5;
+            background-color: #f0f7ff;
+            transition: background-color 0.3s;
+        }
+
+        .booking-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
         }
 
         .booking-table button {
@@ -125,7 +146,9 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            font-weight: 500;
+            font-size: 13px;
         }
 
         .booking-table button[value="Accept"] {
@@ -135,6 +158,8 @@
 
         .booking-table button[value="Accept"]:hover {
             background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         .booking-table button[value="Reject"] {
@@ -144,6 +169,124 @@
 
         .booking-table button[value="Reject"]:hover {
             background-color: #c82333;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-view {
+            background-color: #17a2b8;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            font-size: 13px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-view:hover {
+            background-color: #138496;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+
+        .total-amount {
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        /* Pagination Styling */
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0 15px 0;
+        }
+
+        .pagination {
+            display: inline-flex;
+            border-radius: 50px;
+            background-color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .pagination .page-item .page-link {
+            border: none;
+            color: #2d2d2d;
+            padding: 12px 18px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #2d2d2d;
+            color: white;
+            border: none;
+        }
+
+        .pagination .page-item .page-link:hover {
+            background-color: #f0f0f0;
+            color: #2d2d2d;
+            transform: translateY(-2px);
+        }
+
+        .pagination .page-item.disabled .page-link {
+            color: #6c757d;
+            pointer-events: none;
+            background-color: #f8f9fa;
+        }
+
+        .pagination-info {
+            text-align: center;
+            margin-top: 10px;
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        .table-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .entries-control {
+            display: flex;
+            align-items: center;
+        }
+
+        .entries-control label {
+            margin-right: 10px;
+            color: #495057;
+        }
+
+        .entries-control select {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+            background-color: white;
+        }
+
+        .search-control {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-control label {
+            margin-right: 10px;
+            color: #495057;
+        }
+
+        .search-control input {
+            padding: 5px 15px;
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+            background-color: white;
+            width: 200px;
         }
 
         /* Responsive Styles */
@@ -179,6 +322,24 @@
                 width: 100%;
                 text-align: center;
             }
+
+            .table-controls {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .search-control {
+                margin-top: 15px;
+                width: 100%;
+            }
+
+            .search-control input {
+                width: 100%;
+            }
+
+            .entries-control {
+                width: 100%;
+            }
         }
 
         @media (max-width: 576px) {
@@ -199,13 +360,16 @@
             .booking-table th, .booking-table td {
                 padding: 8px;
             }
-        }
-        @media (max-width: 576px) {
+
             .booking-table th, .booking-table td {
                 font-size: 12px;
             }
-        }
 
+            .pagination .page-item .page-link {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -217,12 +381,24 @@
             <img src="{% static 'alora_icon.png' %}" alt="Light Bulb" class="logo-image">
         </div>
         <nav class="nav flex-column">
-            <a class="nav-link" href="{% url 'admin_dash' %}">Home</a>
-            <a class="nav-link" href="{% url 'view_users' %}">View Users</a>
-            <a class="nav-link" href="{% url 'hall_details' %}">Hall Details</a>
-            <a class="nav-link" href="{% url 'food_details' %}">Food Details</a>
-            <a class="nav-link" href="{% url 'decoration_details' %}">Decoration Details</a>
-            <a class="nav-link active" href="{% url 'admin_view_booking' %}">View Bookings</a>
+            <a class="nav-link" href="{% url 'admin_dash' %}">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a class="nav-link" href="{% url 'view_users' %}">
+                <i class="fas fa-users"></i> View Users
+            </a>
+            <a class="nav-link" href="{% url 'hall_details' %}">
+                <i class="fas fa-building"></i> Hall Details
+            </a>
+            <a class="nav-link" href="{% url 'food_details' %}">
+                <i class="fas fa-utensils"></i> Food Details
+            </a>
+            <a class="nav-link" href="{% url 'decoration_details' %}">
+                <i class="fas fa-paint-brush"></i> Decoration Details
+            </a>
+            <a class="nav-link active" href="{% url 'admin_view_booking' %}">
+                <i class="fas fa-calendar-check"></i> View Bookings
+            </a>
         </nav>
     </div>
 
@@ -230,75 +406,235 @@
     <div class="main-content">
         <div class="top-nav">
             <div class="welcome-section">
-                <h2>Welcome, Admin</h2>
+                <h2>Admin Dashboard</h2>
             </div>
             <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
         </div>
 
         <!-- Booking Management Content -->
-        <!-- Booking Management Content -->
-<h2>Booking Management</h2>
+        <h2>Booking Management</h2>
 
-<div style="overflow-x: auto;">
-    {% if data %}
-        <table class="booking-table">
-            <thead>
-                <tr>
-                    <th>Event Date</th>
-                    <th>User Name</th>
-                    <th>Hall</th>
-                    <th>Booking Date</th>
-                    <th>Photography</th>
-                    <th>Photography Cost</th>
-                    <th>Food</th>
-                    <th>Food Details</th>
-                    <th>Number of People</th>
-                    <th>Decoration</th>
-                    <th>Decoration Details</th>
-                    <th>Payment Status</th>
-                    <th>Total Amount</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for x in data %}
-                <tr>
-                    <td>{{ x.event_date }}</td>
-                    <td>{{ x.user_id.username }}</td>
-                    <td>{{ x.hall_id.name }}</td>
-                    <td>{{ x.booking_date }}</td>
-                    <td>{{ x.photography }}</td>
-                    <td>{{ x.photography_cost }}</td>
-                    <td>{{ x.food_value }}</td>
-                    <td>{{ x.food.food_name }} <br> ₹{{ x.food.food_price }}</td>
-                    <td>{{ x.no_of_persons }}</td>
-                    <td>{{ x.decoration_value }}</td>
-                    <td>{{ x.decoration.decoration_name }} <br> ₹{{ x.decoration.decoration_price }}</td>
-                    <td>{{ x.payment_status }}</td>
-                    <td>₹{{ x.total_payment }}</td>
-                    <td>
-                        <form action="{% url 'acceptrejectbooking' id=x.id %}" method="post">
-                            {% csrf_token %}
-                            {% if x.event_status == 'Pending' %}
-                                <button type="submit" name="Status" value="Accept">Accept</button>
-                                <button type="submit" name="Status" value="Reject">Reject</button>
-                            {% elif x.event_status == 'Accept' %}
-                                <button type="submit" name="Status" value="Reject">Reject</button>
-                            {% else %}
-                                <button type="submit" name="Status" value="Accept">Accept</button>
-                            {% endif %}
-                        </form>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>No bookings found.</p>
-    {% endif %}
-</div>
+        <!-- Table Controls -->
+        <div class="table-controls">
+            <div class="entries-control">
+                <label for="entries">Show</label>
+                <select id="entries" name="entries" onchange="changePageSize(this.value)">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                <label for="entries" style="margin-left: 10px;">entries</label>
+            </div>
+            <div class="search-control">
+                <label for="search"><i class="fas fa-search"></i></label>
+                <input type="text" id="search" name="search" placeholder="Search..." onkeyup="searchTable()">
+            </div>
+        </div>
 
+        <div style="overflow-x: auto;">
+            {% if data %}
+                <table class="booking-table" id="bookingTable">
+                    <thead>
+                        <tr>
+                            <th>Sl No</th>
+                            <th>Event Date</th>
+                            <th>User Name</th>
+                            <th>Hall</th>
+                            <th>Booking Date</th>
+                            <th>Payment Status</th>
+                            <th>Total Amount</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for x in data %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ x.event_date }}</td>
+                            <td>{{ x.user_id.username }}</td>
+                            <td>{{ x.hall_id.name }}</td>
+                            <td>{{ x.booking_date }}</td>
+                            <td>{{ x.payment_status }}</td>
+                            <td class="total-amount">₹{{ x.total_payment }}</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <form action="{% url 'acceptrejectbooking' id=x.id %}" method="post" style="display:inline;">
+                                        {% csrf_token %}
+                                        {% if x.event_status == 'Pending' %}
+                                            <button type="submit" name="Status" value="Accept">Accept</button>
+                                            <button type="submit" name="Status" value="Reject">Reject</button>
+                                        {% elif x.event_status == 'Accept' %}
+                                            <button type="submit" name="Status" value="Reject">Reject</button>
+                                        {% else %}
+                                            <button type="submit" name="Status" value="Accept">Accept</button>
+                                        {% endif %}
+                                    </form>
+                                    <a href="{% url 'booking_detail' x.id %}" class="btn-view" title="View Booking">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <!-- Pagination -->
+                <div class="pagination-container">
+                    <ul class="pagination">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pagination-info">
+                    Showing <span id="start-record">1</span> to <span id="end-record">10</span> of <span id="total-records">{{ data|length }}</span> entries
+                </div>
+            {% else %}
+                <p>No bookings found.</p>
+            {% endif %}
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Page size and current page variables
+        let pageSize = 10;
+        let currentPage = 1;
+        let filteredData = [];
+        
+        // Initialize on document ready
+        document.addEventListener('DOMContentLoaded', function() {
+            const table = document.getElementById('bookingTable');
+            if (table) {
+                // Store all table rows for filtering
+                const rows = Array.from(table.querySelectorAll('tbody tr'));
+                filteredData = rows;
+                updateTable();
+            }
+        });
+        
+        // Function to change page size
+        function changePageSize(size) {
+            pageSize = parseInt(size);
+            currentPage = 1; // Reset to first page
+            updateTable();
+        }
+        
+        // Function to search the table
+        function searchTable() {
+            const input = document.getElementById('search');
+            const filter = input.value.toLowerCase();
+            const table = document.getElementById('bookingTable');
+            
+            if (table) {
+                const rows = Array.from(table.querySelectorAll('tbody tr'));
+                
+                filteredData = rows.filter(row => {
+                    const cells = Array.from(row.getElementsByTagName('td'));
+                    return cells.some(cell => cell.textContent.toLowerCase().includes(filter));
+                });
+                
+                currentPage = 1; // Reset to first page
+                updateTable();
+            }
+        }
+        
+        // Function to update the table display
+        function updateTable() {
+            // Hide all rows first
+            const table = document.getElementById('bookingTable');
+            const rows = Array.from(table.querySelectorAll('tbody tr'));
+            rows.forEach(row => row.style.display = 'none');
+            
+            // Calculate start and end indices for current page
+            const startIndex = (currentPage - 1) * pageSize;
+            const endIndex = Math.min(startIndex + pageSize, filteredData.length);
+            
+            // Show only the rows for the current page
+            for (let i = startIndex; i < endIndex; i++) {
+                filteredData[i].style.display = '';
+            }
+            
+            // Update pagination controls
+            updatePagination();
+            
+            // Update the counter text
+            document.getElementById('start-record').textContent = filteredData.length > 0 ? startIndex + 1 : 0;
+            document.getElementById('end-record').textContent = endIndex;
+            document.getElementById('total-records').textContent = filteredData.length;
+        }
+        
+        // Function to update pagination controls
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredData.length / pageSize);
+            const pagination = document.querySelector('.pagination');
+            
+            // Clear existing page links
+            while (pagination.children.length > 2) {
+                pagination.removeChild(pagination.children[1]);
+            }
+            
+            // Add page links
+            for (let i = totalPages; i >= 1; i--) {
+                const li = document.createElement('li');
+                li.className = 'page-item' + (i === currentPage ? ' active' : '');
+                
+                const a = document.createElement('a');
+                a.className = 'page-link';
+                a.href = '#';
+                a.textContent = i;
+                a.onclick = function(e) {
+                    e.preventDefault();
+                    currentPage = i;
+                    updateTable();
+                };
+                
+                li.appendChild(a);
+                pagination.insertBefore(li, pagination.children[1]);
+            }
+            
+            // Update prev/next buttons
+            const prevBtn = pagination.querySelector('.page-item:first-child');
+            const nextBtn = pagination.querySelector('.page-item:last-child');
+            
+            if (currentPage === 1) {
+                prevBtn.classList.add('disabled');
+            } else {
+                prevBtn.classList.remove('disabled');
+                prevBtn.querySelector('a').onclick = function(e) {
+                    e.preventDefault();
+                    if (currentPage > 1) {
+                        currentPage--;
+                        updateTable();
+                    }
+                };
+            }
+            
+            if (currentPage === totalPages || totalPages === 0) {
+                nextBtn.classList.add('disabled');
+            } else {
+                nextBtn.classList.remove('disabled');
+                nextBtn.querySelector('a').onclick = function(e) {
+                    e.preventDefault();
+                    if (currentPage < totalPages) {
+                        currentPage++;
+                        updateTable();
+                    }
+                };
+            }
+        }
+    </script>
 </body>
 </html>
