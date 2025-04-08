@@ -509,15 +509,19 @@ def payment_status(request, id):
 
 
 #navbar
+@login_required(login_url='login')
 def service(request):
     return render(request,'service.html')
 
+@login_required(login_url='login')
 def aboutus(request):
     return render(request,'aboutus.html')
 
+@login_required(login_url='login')
 def gallery(request):
     return render(request,'gallery.html')
 
+@login_required(login_url='login')
 def testimonial(request):
     return render(request,'testimonial.html')
 

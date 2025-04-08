@@ -16,8 +16,6 @@
             flex-direction: column;
         }
         
-       
-
         .alora h3 {
             font-family: 'Irish Grover', cursive;
             font-size: 24px;
@@ -134,12 +132,21 @@
                 padding: 10px 0;
             }
             .topmenu {
-                display: flex;
+                display: none; /* Hide the menu by default on mobile */
                 flex-direction: column;
-                align-items: center;
+                width: 100%;
+                background-color: black;
+                position: absolute;
+                top: 55px;
+                left: 0;
+                z-index: 1000;
+            }
+            .topmenu.active {
+                display: flex; /* Show the menu when active */
             }
             .topmenu a {
-                padding: 8px;
+                padding: 15px;
+                text-align: center;
             }
             .footer-container {
                 flex-direction: column;
@@ -192,47 +199,420 @@
             font-weight: bold; /* Makes labels more readable */
             margin-bottom: 5px; /* Adds small space below labels */
         }
+
+        /* New Navigation Bar Styles */
+        .topnav {
+            background-color: black;
+            color: white;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            position: relative; /* Added for toggle button positioning */
+        }
+
+        .alora {
+            width: 110px;
+            margin-left: 40px;
+            display: flex;
+            padding-top: 10px;
+        }
+
+        .alora h3 {
+            font-family: 'Irish Grover';
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo {
+            width: 30px;
+            height: 30px;
+            margin-left: 5px;
+        }
+
+        .topmenu {
+            width: 550px;
+            margin-right: 500px;
+        }
+
+        .topmenu a {
+            padding: 10px 18px;
+            color: white;
+            text-decoration: none;
+            font-size: large;
+        }
+
+        .topmenu a:hover {
+            background-color: rgb(86, 86, 86);
+        }
+
+        .topmenu a:active {
+            color: rgb(10, 9, 9);
+        }
+
+        /* Toggle Button Styles - Fixed positioning */
+        .toggle-button {
+            display: none; /* Hide by default */
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            position: absolute; /* Fixed position */
+            right: 20px; /* Position right */
+            top: 17px; /* Center vertically */
+            z-index: 1001; /* Ensure it's above other elements */
+        }
+
+        .toggle-button .bar {
+            height: 3px;
+            width: 100%;
+            background-color: white;
+            border-radius: 10px;
+        }
+
+        /* Mobile Navigation Styles */
+        @media (max-width: 768px) {
+            .toggle-button {
+                display: flex; /* Show toggle button on mobile */
+            }
+
+            .topnav {
+                justify-content: center; /* Center the logo */
+                padding: 10px 0;
+            }
+
+            .alora {
+                margin-left: 0; /* Remove left margin on mobile */
+            }
+
+            .topmenu {
+                display: none; /* Hide the menu by default on mobile */
+                flex-direction: column;
+                width: 100%;
+                background-color: black;
+                position: absolute;
+                top: 55px;
+                left: 0;
+                margin-right: 0; /* Remove right margin on mobile */
+                z-index: 1000;
+            }
+
+            .topmenu.active {
+                display: flex; /* Show the menu when active */
+            }
+
+            .topmenu a {
+                padding: 15px;
+                text-align: center;
+            }
+        }
+
+/* Redesigned Booking Form Styles */
+.book-form {
+    background: #ffffff;
+    padding: 25px 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    margin-top: 0 !important;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.book-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #ff5a5a;
+    z-index: 1;
+}
+
+.book-form h3 {
+    font-family: 'Irish Grover';
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+    position: relative;
+    text-align: center;
+}
+
+.event-title-accent {
+    color: #ff5a5a;
+    position: relative;
+}
+
+.book-form .form-label {
+    color: #555;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.input-wrapper {
+    position: relative;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.custom-input, .custom-select {
+    border: 1px solid #e0e0e0;
+    background-color: #f9f9f9;
+    padding: 10px 12px;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.custom-input:focus, .custom-select:focus {
+    border-color: #ff5a5a;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(255, 90, 90, 0.1);
+    outline: none;
+}
+
+/* Styling for selection cards */
+.selection-card {
+    background: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s;
+    height: 100%;
+}
+
+.selection-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    border-color: #ff5a5a;
+}
+
+.selection-image-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.selection-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 90, 90, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+input[type="radio"]:checked ~ .selection-image-container .selection-overlay {
+    opacity: 1;
+}
+
+input[type="radio"]:checked ~ .selection-card {
+    border-color: #ff5a5a;
+    box-shadow: 0 3px 8px rgba(255, 90, 90, 0.2);
+}
+
+.checkmark {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.selection-label {
+    font-weight: 600;
+    font-size: 12px;
+    color: #333;
+    margin-top: 5px;
+    transition: color 0.3s;
+    text-align: center;
+}
+
+.selection-detail {
+    font-size: 10px;
+    color: #666;
+    text-align: center;
+}
+
+.selection-price {
+    font-weight: 700;
+    color: #ff5a5a;
+    background-color: rgba(255, 90, 90, 0.1);
+    border-radius: 12px;
+    padding: 2px 8px;
+    display: inline-block;
+    margin-top: 3px;
+    font-size: 11px;
+    text-align: center;
+}
+
+input[type="radio"]:checked ~ .selection-label {
+    color: #ff5a5a;
+}
+
+/* Custom radio buttons */
+.custom-radio-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 5px;
+}
+
+.custom-radio {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    font-size: 14px;
+    user-select: none;
+    color: #555;
+}
+
+.custom-radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.radio-checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+}
+
+.custom-radio:hover input ~ .radio-checkmark {
+    background-color: #f0f0f0;
+    border-color: #ccc;
+}
+
+.custom-radio input:checked ~ .radio-checkmark {
+    background-color: #fff;
+    border-color: #ff5a5a;
+}
+
+.radio-checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.custom-radio input:checked ~ .radio-checkmark:after {
+    display: block;
+}
+
+.custom-radio .radio-checkmark:after {
+    top: 4px;
+    left: 4px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ff5a5a;
+}
+
+/* Book now button */
+.btn-book-now {
+    background: #ff5a5a;
+    color: white;
+    border: none;
+    padding: 12px 15px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btn-book-now:hover {
+    background: #ff3366;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(255, 90, 90, 0.3);
+}
+
+.btn-book-now:active {
+    transform: translateY(0);
+}
+
+/* Form positioning */
+.gallery-wrapper {
+    display: flex;
+    align-items: flex-start;
+}
+
+.col-lg-6 .book-form {
+    position: sticky;
+    top: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) { 
+    .book-form {
+        margin-top: 15px !important;
+        max-height: none;
+        position: static;
+    }
+    
+    .gallery-wrapper {
+        flex-direction: column;
+    }
+}
+
+/* Ensure proper spacing between form elements */
+.book-form .mb-2 {
+    margin-bottom: 15px !important;
+}
+
+.book-form .mb-3 {
+    margin-bottom: 20px !important;
+}
+
         
     </style>
 </head>
 <body>
-  <!-- Top Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-black">
-    <div class="container-fluid">
-        <a class="navbar-brand d-flex align-items-center" href="#">
-            <h3 class="mb-0" style="font-family: 'Irish Grover', cursive;">ALORA</h3>
-            <img src="{% static 'alora_icon.png' %}" class="ms-2" alt="Alora Logo" width="30">
-        </a>
-        
-        <!-- Navbar Toggler for Mobile -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- Collapsible Navbar Links (Centered) -->
-        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-            <ul class="navbar-nav text-center ms-3 custom-navbar">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'home' %}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'service' %}">Services</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'aboutus' %}">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'gallery' %}">Gallery</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'testimonial' %}">Testimonials</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
+  <!-- New Navigation Bar -->
+  <div class="topnav">
+      <div class="alora">
+          <h3>ALORA</h3>
+          <img src="{% static 'alora_icon.png' %}" class="logo">
+      </div>
+      <div class="topmenu">
+          <a href="{% url 'home' %}">Home</a>
+          <a href="{% url 'service' %}">Services</a>
+          <a href="{% url 'aboutus' %}">About</a>
+          <a href="{% url 'gallery' %}">Gallery</a>
+          <a href="{% url 'testimonial' %}">Testimonials</a>
+      </div>
+      <!-- Toggle Button for Mobile -->
+      <div class="toggle-button">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+      </div>
+  </div>
 
     <!-- Main Content -->
     <div class="container mt-5">
@@ -253,68 +633,156 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <img src="{% static 'wedgall.webp' %}" alt="stage" class="img-fluid rounded border">
-                        <img src="{% static 'haldi.jpeg' %}" alt="haldi2" class="img-fluid rounded border mt-2">
+                        <img src="{% static 'party1.jpeg' %}" alt="haldi2" class="img-fluid rounded border mt-2" style="height: 295px; object-fit: cover; width: 400px;">
                     </div>
                     <div class="col-md-6 mb-3">
-                        <img src="{% static 'wwt.jpg' %}" alt="wed2" class="img-fluid rounded border small-img ">
+                        <img src="{% static 'wwt.jpg' %}" alt="wed2" class="img-fluid rounded border small-img" style="height: 507px; object-fit: cover;">
                     </div>
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-12 mb-3">
                         <img src="{% static 'party1.jpeg' %}"alt="party" class="img-fluid rounded border">
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <!-- Booking Form -->
+            <!-- Booking Form with impressive styling while maintaining size -->
             <div class="col-lg-6">
                 <div class="book-form">
-                    <h3>Book Your Event</h3>
+                    <h3 class="text-center mb-3" style="font-family: 'Georgia', serif;">
+                        <span class="event-title-accent">Book Your</span> Dream Event
+                    </h3>
+                    
                     <form method="post">
                         {% csrf_token %}
-                        <div class="mb-3">
+                        <div class="mb-2">
                             <label for="event_date" class="form-label">Event Date:</label>
-                            <input type="date" id="event_date" name="event_date" class="form-control" required>
+                            <div class="input-wrapper">
+                                <input type="date" id="event_date" name="event_date" class="form-control custom-input" required>
+                            </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="hall" class="form-label">Select Hall:</label>
-                            <select id="hall" name="hall" class="form-select" required>
+                        <div class="mb-2">
+                            <label class="form-label">Select Hall:</label>
+                            <div class="row g-2">
                                 {% for hall in halls %}
-                                <option value="{{ hall.id }}">{{ hall.name }} - Capacity: {{ hall.capacity }} - Price: ₹{{ hall.price_per_day }}</option>
+                                <div class="col-md-4 mb-2">
+                                    <div class="selection-card hall-card">
+                                        <label class="d-block text-center hall-selection">
+                                            <input type="radio" name="hall" value="{{ hall.id }}" class="d-none" required>
+                                            <div class="selection-image-container">
+                                                <img src="{{ hall.photo_url.url }}" alt="{{ hall.name }}" class="img-fluid rounded hall-option" style="cursor:pointer; height: 80px; object-fit: cover;">
+                                                <div class="selection-overlay">
+                                                    <span class="checkmark">✓</span>
+                                                </div>
+                                            </div>
+                                            <div class="selection-label">{{ hall.name }}</div>
+                                            <div class="selection-detail">Capacity: {{ hall.capacity }}</div>
+                                            <div class="selection-price">₹{{ hall.price_per_day }}</div>
+                                        </label>
+                                    </div>
+                                </div>
                                 {% endfor %}
-                            </select>
+                            </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="food" class="form-label">Select Food (Optional):</label>
-                            <select id="food" name="food" class="form-select">
-                                <option value="">No Food</option>
+                        <!-- Modify the Food Selection section to match the Hall section structure -->
+                        <div class="mb-2">
+                            <label class="form-label">Select Food (Optional):</label>
+                             <!-- No Food Option -->
+                             <div class="col-md-4 mb-2">
+                                <div class="selection-card food-card">
+                                    <label class="d-block text-center food-selection">
+                                        <input type="radio" name="food" value="" class="d-none">
+                                        <div class="selection-image-container">
+                                            <!-- <img src="{% static 'no_food.jpg' %}" alt="No Food" class="img-fluid rounded food-option" style="cursor:pointer; height: 70px; object-fit: cover; background-color: #f5f5f5;"> -->
+                                            <div class="selection-overlay">
+                                                <span class="checkmark">✓</span>
+                                            </div>
+                                        </div>
+                                        <div class="selection-label">No Food</div>
+                                        <div class="selection-price">₹0</div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row g-2">
                                 {% for food in foods %}
-                                <option value="{{ food.id }}">{{ food.food_name }} - ₹{{ food.food_price }}</option>
+                                <div class="col-md-4 mb-2">
+                                    <div class="selection-card food-card">
+                                        <label class="d-block text-center food-selection">
+                                            <input type="radio" name="food" value="{{ food.id }}" class="d-none">
+                                            <div class="selection-image-container">
+                                                <img src="{{ food.food_image.url }}" alt="{{ food.food_name }}" class="img-fluid rounded food-option" style="cursor:pointer; height: 70px; object-fit: cover;">
+                                                <div class="selection-overlay">
+                                                    <span class="checkmark">✓</span>
+                                                </div>
+                                            </div>
+                                            <div class="selection-label">{{ food.food_name }}</div>
+                                            <div class="selection-price">₹{{ food.food_price }}</div>
+                                        </label>
+                                    </div>
+                                </div>
                                 {% endfor %}
-                            </select>
+                                <!-- No Food Option -->
+                                <!-- <div class="col-md-4 mb-2">
+                                    <div class="selection-card food-card">
+                                        <label class="d-block text-center food-selection">
+                                            <input type="radio" name="food" value="" class="d-none">
+                                            <div class="selection-image-container">
+                                                <img src="{% static 'no_food.jpg' %}" alt="No Food" class="img-fluid rounded food-option" style="cursor:pointer; height: 70px; object-fit: cover; background-color: #f5f5f5;">
+                                                <div class="selection-overlay">
+                                                    <span class="checkmark">✓</span>
+                                                </div>
+                                            </div>
+                                            <div class="selection-label">No Food</div>
+                                            <div class="selection-price">₹0</div>
+                                        </label>
+                                    </div>
+                                </div> -->
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="no_of_persons" class="form-label">Number of Persons:</label>
-                            <input type="number" id="no_of_persons" name="no_of_persons" class="form-control" min="1" required>
-                        </div>
-                        
 
-                        <div class="mb-3">
+                        <div class="mb-2">
+                            <label for="no_of_persons" class="form-label">Number of Guests:</label>
+                            <div class="input-wrapper">
+                                <input type="number" id="no_of_persons" name="no_of_persons" class="form-control custom-input" min="1" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-2">
                             <label for="decoration" class="form-label">Select Decoration (Optional):</label>
-                            <select id="decoration" name="decoration" class="form-select">
-                                <option value="">No Decoration</option>
-                                {% for decoration in decorations %}
-                                <option value="{{ decoration.id }}">{{ decoration.decoration_name }} - ₹{{ decoration.decoration_price }}</option>
-                                {% endfor %}
-                            </select>
+                            <div class="input-wrapper">
+                                <select id="decoration" name="decoration" class="form-select custom-select">
+                                    <option value="">No Decoration</option>
+                                    {% for decoration in decorations %}
+                                    <option value="{{ decoration.id }}">{{ decoration.decoration_name }} - ₹{{ decoration.decoration_price }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
                         </div>
 
-                        <button type="submit" class="btn btn-danger w-100">Book Now</button>
+                        <div class="mb-3">
+                            <label class="form-label">Photography:</label>
+                            <div class="custom-radio-group">
+                                <label class="custom-radio">
+                                    <input type="radio" name="photography" value="yes" id="photoYes">
+                                    <span class="radio-label">Yes (₹{{ photography_price }})</span>
+                                    <span class="radio-checkmark"></span>
+                                </label>
+                                <label class="custom-radio">
+                                    <input type="radio" name="photography" value="no" id="photoNo" checked>
+                                    <span class="radio-label">No</span>
+                                    <span class="radio-checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-book-now">Book Your Event Now</button>
                     </form>
                 </div>
             </div>
+            
         </div>
     </div>
 
@@ -364,5 +832,57 @@
     
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+       // Enhanced selection script for impressive form
+document.addEventListener('DOMContentLoaded', function() {
+    // Hall selection
+    document.querySelectorAll('.hall-option').forEach(img => {
+        img.addEventListener('click', () => {
+            // Reset all selections
+            document.querySelectorAll('.hall-selection input').forEach(input => {
+                input.checked = false;
+            });
+            
+            // Set selected
+            const input = img.closest('label').querySelector('input[type="radio"]');
+            input.checked = true;
+        });
+    });
+
+    // Food selection
+    document.querySelectorAll('.food-option').forEach(img => {
+        img.addEventListener('click', () => {
+            // Reset all selections
+            document.querySelectorAll('.food-selection input').forEach(input => {
+                input.checked = false;
+            });
+            
+            // Set selected
+            const input = img.closest('label').querySelector('input[type="radio"]');
+            input.checked = true;
+        });
+    });
+    
+    // Add animation effect to the button
+    const bookButton = document.querySelector('.btn-book-now');
+    if (bookButton) {
+        bookButton.addEventListener('mouseenter', function() {
+            this.style.transition = 'all 0.3s ease';
+        });
+    }
+    
+    // Toggle Button functionality
+    const toggleButton = document.querySelector('.toggle-button');
+    const topmenu = document.querySelector('.topmenu');
+
+    if (toggleButton) {
+        toggleButton.addEventListener('click', () => {
+            topmenu.classList.toggle('active');
+        });
+    }
+});
+    </script>
+    
 </body>
 </html>
