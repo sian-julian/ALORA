@@ -36,7 +36,7 @@ class Bookings(models.Model):
     payment_status=models.CharField(max_length=100,default='Pending')
     photography=models.CharField(max_length=100,null=True,blank=True)
     no_of_persons=models.IntegerField(null=True,blank=True)
-    food_value=models.BooleanField(null=True,blank=True)
+    food_value=models.BooleanField(null=True,blank=True) 
     food=models.ForeignKey(Food,on_delete=models.SET_NULL, null=True, blank=True)
     decoration_value=models.BooleanField(null=True,blank=True)
     decoration=models.ForeignKey(Decoration,on_delete=models.SET_NULL, null=True, blank=True)

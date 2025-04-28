@@ -203,44 +203,179 @@
             color: #f3f4f6;
         }
 
+              /* Updated Navigation Styles */
+.topnav {
+  background-color: black;
+  color: white;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  width: 100%;
+}
+
+.alora {
+  width: auto;
+  display: flex;
+  align-items: center;
+  padding-top: 0;
+  margin-left: 50px;
+}
+
+.alora h3 {
+  font-family: "Irish Grover";
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.logo {
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+}
+
+.topmenu {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  margin-left: 261px;
+}
+
+.topmenu a {
+  padding: 10px 18px;
+  color: white;
+  text-decoration: none;
+  /* font-family: "Inria Sans"; */
+  font-size: 18px;
+}
+
+.topmenu a:hover {
+  background-color: rgb(86, 86, 86);
+}
+
+.topmenu a:active {
+  color: rgb(10, 9, 9);
+}
+
+.rc3 {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 20px;
+  word-spacing: normal;
+}
+
+.rc3 a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  margin-left: 15px;
+}
+
+.rc3 .btn {
+  font-family: "Inria Sans";
+  font-size: 18px;
+  background-color: aqua;
+}
+
+/* Toggle Button Styles */
+.toggle-button {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  cursor: pointer;
+}
+
+.toggle-button .bar {
+  height: 3px;
+  width: 100%;
+  background-color: white;
+  border-radius: 10px;
+}
+
+/* Mobile Navigation Styles */
+@media (max-width: 768px) {
+  .toggle-button {
+    display: flex;
+    margin-left: auto;
+  }
+
+  .topmenu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: black;
+    position: absolute;
+    top: 55px;
+    left: 0;
+    z-index: 1000;
+    margin-left: 0;
+  }
+
+  .topmenu.active {
+    display: flex;
+  }
+
+  .topmenu a {
+    padding: 15px;
+    text-align: center;
+    font-family: "Inria Sans";
+    font-size: 18px;
+  }
+
+  .rc3 {
+    display: none;
+  }
+  
+  .rc3.active {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: black;
+    position: absolute;
+    top: 185px; /* Position below the menu items */
+    left: 0;
+    z-index: 1000;
+    padding: 15px 0;
+  }
+  
+  .rc3.active a {
+    padding: 10px 15px;
+    text-align: center;
+    width: 100%;
+  }
+}
   </style>
 </head>
 <body>
   <div class="container-fluid p-0">
-    <nav class="roww">
-      <div class="rc1">
-        <span class="alora">ALORA</span>
-        <img src="{% static 'alora_icon.png' %}" alt="icon" height="25px" width="25px">
+    <div class="topnav">
+      <div class="alora">
+        <h3>ALORA</h3>
+        <img src="{% static 'alora_icon.png' %}" class="logo" />
       </div>
-      <div class="rc2">
+      <div class="topmenu">
         <a href="{% url 'home' %}">Home</a>
-        <a href="{% url 'login' %}">Services</a>
-        <a href="{% url 'login' %}">About</a>
-        <a href="{% url 'login' %}">Gallery</a>
-        <a href="{% url 'login' %}">Testimonials</a>
+        <a href="{% url 'service' %}">Services</a>
+        <a href="{% url 'aboutus' %}">About</a>
+        <a href="{% url 'gallery' %}">Gallery</a>
+        <a href="{% url 'testimonial' %}">Testimonials</a>
       </div>
       <div class="rc3">
-        <a href="{% url 'register' %}">SignUp</a>
+        <a href="{% url 'register' %}">sign up</a>
         <a href="{% url 'login' %}">Login</a>
       </div>
-      <div class="rc4">
-        <div class="dropdown">
-          <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-list"></i>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-dark">
-            <li><a class="dropdown-item active" href="{% url 'index' %}">Home</a></li>
-            <li><a class="dropdown-item" href="{% url 'login' %}">Services</a></li>
-            <li><a class="dropdown-item" href="{% url 'login' %}">About</a></li>
-            <li><a class="dropdown-item" href="{% url 'login' %}">Gallery</a></li>
-            <li><a class="dropdown-item" href="{% url 'login' %}">Testimonials</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="{% url 'register' %}">SignUp</a></li>
-            <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
-          </ul>
-        </div>
+      <!-- Toggle Button for Mobile -->
+      <div class="toggle-button">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
       </div>
-    </nav>
+    </div>
     <div id="carouselExampleAutoplaying a" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">

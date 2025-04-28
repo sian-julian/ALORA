@@ -1,548 +1,880 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ALORA - Event Management</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ALORA - Event Management</title>
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link href='https://fonts.googleapis.com/css?family=Irish Grover' rel='stylesheet'>
-  <link href='https://fonts.googleapis.com/css?family=Inria Sans' rel='stylesheet'>
-  <link href='https://fonts.googleapis.com/css?family=Inknut Antiqua' rel='stylesheet'>
-  <link href='https://fonts.googleapis.com/css?family=Island Moments' rel='stylesheet'>
-  <link href='https://fonts.googleapis.com/css?family=Italiana' rel='stylesheet'>
-  <link href='https://fonts.googleapis.com/css?family=Darker Grotesque' rel='stylesheet'>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  <style>
-    nav{
-      background-color: rgb(7, 3, 3);
-      color: white;
-      padding: 10px 0 10px 0;
-    }
-    nav a{
-      text-decoration: none;
-      color: white;
-    }
-    .alora{
-      font-family: 'Irish Grover';
-      font-size: 25px;
-    }
-    .rc1{
-      width: 10%;
-      text-align: center;
-    }
-    .rc2{
-      width: 75%;
-      text-align: center;
-      word-spacing: 25px;
-      text-decoration: none;
-      font-family: 'Inria Sans';
-      font-size: 18px;
-    }
-    .rc3{
-      word-spacing: 15px;
-    }
-    .rc3 .btn{
-      font-size: 27px;
-      background-color: aqua;
-    }
-    .rc4{
-      display: none;
-    }
-    .a .carousel-button-container{
-      font-family: 'Inknut Antiqua';
-    }
-    .roww{
-      display: flex;
-    }
-    .carousel-control-prev-icon,.carousel-control-next-icon{
-      filter: invert(100%);
-      width: 3rem;
-      height: 3rem;
-    }
-    .carousel-button-container {
-    position: absolute;
-    top: 90%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10; /* Ensures it's above images */
-    border: 1px solid black;
-    background-color: white;
-    }
-    .r img{
-      height: 350px;
-      width: 100%;
-      border-radius: 10px;
-    }
-    .r{
-      margin: 4% 5%;
-      font-family: 'Inknut Antiqua';
-    }
-    .r .rc{
-      position: relative;
-    }
-    .r .txt {
-    position: absolute;
-    top: 25px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: black;
-    }
-    .r2{
-      text-align: center;
-    }
-    .r2 .ep{
-      font-family: 'Irish Grover';
-      font-size: 36px;
-    }
-    .r2 .ep1{
-      font-family: 'Island Moments';
-      font-size: 40px;
-    }
-    .cia img{
-      height: 300px;
-      width: 200px;
-    }
-    .r3{
-      background-color: rgb(250, 215, 238);
-      height: auto;
-    }
-    .r3 .hr3{
-      font-family: 'Italiana';
-      font-size: 37px;
-    }
-    .r3 .h1r3{
-      font-family: 'Darker Grotesque';
-      font-size: 29px;
-    }
-    .im img{
-      padding: 5px;
-    }
-
-    /* Event Carousel Styles */
-    #eventCarousel .carousel-item {
-      padding: 20px;
-    }
-    #eventCarousel img {
-      height: 200px;
-      width: 100%;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-    #carouselExampleInterval {
-      display: none;
-    }
-    #carouselExampleInterval img {
-      height: 200px;
-      width: 100%;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-
-    @media (max-width: 768px) {
-      .rc1{
-        width: 90%;
-        text-align: left;
-        height: auto;
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Irish Grover"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Inria Sans"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Inknut Antiqua"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Island Moments"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Italiana"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Darker Grotesque"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      nav {
+        background-color: rgb(7, 3, 3);
+        color: white;
+        padding: 10px 0 10px 0;
       }
-      .rc1 span{
-        margin-left: 5%;
+      nav a {
+        text-decoration: none;
+        color: white;
       }
-      .rc2,.rc3{
+      .alora {
+        font-family: "Irish Grover";
+        font-size: 25px;
+      }
+      .rc1 {
+        width: 10%;
+        text-align: center;
+      }
+      .rc2 {
+        width: 75%;
+        text-align: center;
+        word-spacing: 25px;
+        text-decoration: none;
+        font-family: "Inria Sans";
+        font-size: 18px;
+      }
+      .rc3 {
+        word-spacing: 15px;
+      }
+      .rc3 .btn {
+        font-size: 27px;
+        background-color: aqua;
+      }
+      .rc4 {
         display: none;
       }
-      .rc4{
-        display: contents;
-        text-align: right;
+      .a .carousel-button-container {
+        font-family: "Inknut Antiqua";
+      }
+      .roww {
+        display: flex;
+      }
+      .carousel-control-prev-icon,
+      .carousel-control-next-icon {
+        filter: invert(100%);
+        width: 3rem;
+        height: 3rem;
+      }
+      .carousel-button-container {
+        position: absolute;
+        top: 90%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10; /* Ensures it's above images */
+        border: 1px solid black;
+        background-color: white;
+      }
+      .r img {
+        height: 350px;
+        width: 100%;
+        border-radius: 10px;
+      }
+      .r {
+        margin: 4% 5%;
+        font-family: "Inknut Antiqua";
+      }
+      .r .rc {
+        position: relative;
+      }
+      .r .txt {
+        position: absolute;
+        top: 25px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: black;
+      }
+      .r2 {
+        text-align: center;
+      }
+      .r2 .ep {
+        font-family: "Irish Grover";
+        font-size: 36px;
+      }
+      .r2 .ep1 {
+        font-family: "Island Moments";
+        font-size: 40px;
+      }
+      .cia img {
+        height: 300px;
+        width: 200px;
       }
       .r3 {
-        text-align: left;
+        background-color: rgb(250, 215, 238);
         height: auto;
-        margin-left: 0;
-        padding-left: 0;
       }
-      .hr3 {
-        text-align: left;  
+      .r3 .hr3 {
+        font-family: "Italiana";
+        font-size: 37px;
       }
-      .row8 {
-        margin: 100px;
-        padding-left: 0;
+      .r3 .h1r3 {
+        font-family: "Darker Grotesque";
+        font-size: 29px;
       }
-      #eventCarousel img, #carouselExampleInterval img {
-        height: 150px;
+      .im img {
+        padding: 5px;
       }
-    }
 
-    /* Footer Section */
-    .footer {
-      background-color: #2d2d2d;
-      padding: 3rem 0;
-      margin-top: 2rem;
-      color: #f3f4f6;
-    }
-    .footer .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1rem;
-      background-color: transparent;
-    }
-    .footer .row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-    }
-    .footer .col-md-4 {
-      flex: 1 1 300px;
-    }
-    .footer .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: white;
-    }
-    .footer p {
-      color: #d1d5db;
-      margin-top: 1rem;
-    }
-    .footer h4 {
-      font-size: 1.25rem;
-      margin-bottom: 1rem;
-      color: white;
-    }
-    .footer-links {
-      list-style: none;
-      padding: 0;
-    }
-    .footer-links li {
-      margin-bottom: 0.5rem;
-    }
-    .footer-links a {
-      color: #d1d5db;
-      text-decoration: none;
-    }
-    .footer-links a:hover {
-      color: #f3f4f6;
-    }
-    .r3, .row, .r2 {
-      width: 100%;
-    }
-  </style>
-</head>
-<body>
-  <div class="container-fluid p-0">
-    <nav class="roww">
-      <div class="rc1">
-        <span class="alora">ALORA</span>
-        <img src="{% static 'alora_icon.png' %}" alt="icon" height="25px" width="25px">
-      </div>
-      <div class="rc2">
-        <a href="{% url 'home' %}">Home</a>
-        <a href="{% url 'service' %}">Services</a>
-        <a href="{% url 'aboutus' %}">About</a>
-        <a href="{% url 'gallery' %}">Gallery</a>
-        <a href="{% url 'testimonial' %}">Testimonials</a>
-      </div>
-      <div class="rc3">
-        <a href="{% url 'profile' %}" class="profile-btn">Profile</a>
-        <a href="{% url 'logout' %}">Logout</a>
-      </div>
-      <div class="rc4">
-        <div class="dropdown">
-          <button class="btn btn-secondary toggle-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-list"></i>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-dark">
-            <li><a class="dropdown-item active" href="{% url 'home' %}">Home</a></li>
-            <li><a class="dropdown-item" href="{% url 'service' %}">Services</a></li>
-            <li><a class="dropdown-item" href="{% url 'aboutus' %}">About</a></li>
-            <li><a class="dropdown-item" href="{% url 'gallery' %}">Gallery</a></li>
-            <li><a class="dropdown-item" href="{% url 'testimonial' %}">Testimonials</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
-            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-          </ul>
+      /* Event Carousel Styles */
+      #eventCarousel .carousel-item {
+        padding: 20px;
+      }
+      #eventCarousel img {
+        height: 200px;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+      #carouselExampleInterval {
+        display: none;
+      }
+      #carouselExampleInterval img {
+        height: 200px;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+
+      @media (max-width: 768px) {
+        .rc1 {
+          width: 90%;
+          text-align: left;
+          height: auto;
+        }
+        .rc1 span {
+          margin-left: 5%;
+        }
+        .rc2,
+        .rc3 {
+          display: none;
+        }
+        .rc4 {
+          display: contents;
+          text-align: right;
+        }
+        .r3 {
+          text-align: left;
+          height: auto;
+          margin-left: 0;
+          padding-left: 0;
+        }
+        .hr3 {
+          text-align: left;
+        }
+        .row8 {
+          margin: 100px;
+          padding-left: 0;
+        }
+        #eventCarousel img,
+        #carouselExampleInterval img {
+          height: 150px;
+        }
+      }
+
+      /* Footer Section */
+      .footer {
+        background-color: #2d2d2d;
+        padding: 3rem 0;
+        margin-top: 2rem;
+        color: #f3f4f6;
+      }
+      .footer .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+        background-color: transparent;
+      }
+      .footer .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+      }
+      .footer .col-md-4 {
+        flex: 1 1 300px;
+      }
+      .footer .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: white;
+      }
+      .footer p {
+        color: #d1d5db;
+        margin-top: 1rem;
+      }
+      .footer h4 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+        color: white;
+      }
+      .footer-links {
+        list-style: none;
+        padding: 0;
+      }
+      .footer-links li {
+        margin-bottom: 0.5rem;
+      }
+      .footer-links a {
+        color: #d1d5db;
+        text-decoration: none;
+      }
+      .footer-links a:hover {
+        color: #f3f4f6;
+      }
+      .r3,
+      .row,
+      .r2 {
+        width: 100%;
+      }
+
+      /* Updated Navigation Styles */
+.topnav {
+  background-color: black;
+  color: white;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  width: 100%;
+}
+
+.alora {
+  width: auto;
+  display: flex;
+  align-items: center;
+  padding-top: 0;
+  margin-left: 50px;
+}
+
+.alora h3 {
+  font-family: "Irish Grover";
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.logo {
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+}
+
+.topmenu {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  margin-left: 261px;
+}
+
+.topmenu a {
+  padding: 10px 18px;
+  color: white;
+  text-decoration: none;
+  /* font-family: "Inria Sans"; */
+  font-size: 18px;
+}
+
+.topmenu a:hover {
+  background-color: rgb(86, 86, 86);
+}
+
+.topmenu a:active {
+  color: rgb(10, 9, 9);
+}
+
+.rc3 {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 20px;
+  word-spacing: normal;
+}
+
+.rc3 a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  margin-left: 15px;
+}
+
+.rc3 .btn {
+  font-family: "Inria Sans";
+  font-size: 18px;
+  background-color: aqua;
+}
+
+/* Toggle Button Styles */
+.toggle-button {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  cursor: pointer;
+}
+
+.toggle-button .bar {
+  height: 3px;
+  width: 100%;
+  background-color: white;
+  border-radius: 10px;
+}
+
+/* Mobile Navigation Styles */
+@media (max-width: 768px) {
+  .toggle-button {
+    display: flex;
+    margin-left: auto;
+  }
+
+  .topmenu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: black;
+    position: absolute;
+    top: 55px;
+    left: 0;
+    z-index: 1000;
+    margin-left: 0;
+  }
+
+  .topmenu.active {
+    display: flex;
+  }
+
+  .topmenu a {
+    padding: 15px;
+    text-align: center;
+    font-family: "Inria Sans";
+    font-size: 18px;
+  }
+
+  .rc3 {
+    display: none;
+  }
+  
+  .rc3.active {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: black;
+    position: absolute;
+    top: 185px; /* Position below the menu items */
+    left: 0;
+    z-index: 1000;
+    padding: 15px 0;
+  }
+  
+  .rc3.active a {
+    padding: 10px 15px;
+    text-align: center;
+    width: 100%;
+  }
+}
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid p-0">
+      <div class="topnav">
+        <div class="alora">
+          <h3>ALORA</h3>
+          <img src="{% static 'alora_icon.png' %}" class="logo" />
+        </div>
+        <div class="topmenu">
+          <a href="{% url 'home' %}">Home</a>
+          <a href="{% url 'service' %}">Services</a>
+          <a href="{% url 'aboutus' %}">About</a>
+          <a href="{% url 'gallery' %}">Gallery</a>
+          <a href="{% url 'testimonial' %}">Testimonials</a>
+        </div>
+        <div class="rc3">
+          <a href="{% url 'profile' %}">profile</a>
+          <a href="{% url 'logout' %}">Logout</a>
+        </div>
+        <!-- Toggle Button for Mobile -->
+        <div class="toggle-button">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
         </div>
       </div>
-    </nav>
 
-    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="{% static 'main.png' %}" class="d-block w-100" alt="..." height="600vh">
-        </div>
-        <div class="carousel-item">
-          <img src="{% static 'main2.jpg' %}" class="d-block w-100" alt="..." height="600vh">
-        </div>
-        <div class="carousel-item">
-          <img src="{% static 'main3.jpg' %}" class="d-block w-100" alt="..." height="600vh">
-        </div>
-      </div>
-
-      <div class="carousel-button-container">
-        <a href="{% url 'aboutus' %}"><button class="btn">Know More</button></a>
-      </div>
-
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-    
-    <div class="row g-0 justify-content-center r">
-      <div class="col-lg-3 col-md-6 col-sm-12 text-white p-3 rc"><img src="{% static 'venue.png' %}" alt=""><span class="txt">VENUE</span></div>
-      <div class="col-lg-3 col-md-6 col-sm-12 text-white p-3 rc"><img src="{% static 'decor.png' %}" alt=""><span class="txt">DECOR</span></div>
-      <div class="col-lg-3 col-md-6 col-sm-12 text-white p-3 rc"><img src="{% static 'catering.png' %}" alt=""><span class="txt">CATERING</span></div>
-      <div class="col-lg-3 col-md-6 col-sm-12 text-white p-3 rc"><img src="{% static 'photography.png' %}" alt=""><span class="txt">PHOTOGRAPHY</span></div>
-    </div>
-    
-    <div class="row g-0 r2">
-      <span class="ep">EVENT PLANNER</span>
-      <span class="ep1">"We Plan Your Dream Weddings and Events"</span>
-      <div class="d-flex justify-content-center gap-5 mb-3 mt-4">
-        <button class="btn btn-outline-dark active" onclick="handleSlide('all')">All</button>
-        <button class="btn btn-outline-dark" onclick="handleSlide('wedding')">Weddings</button>
-        <button class="btn btn-outline-dark" onclick="handleSlide('private')">Private Events</button>
-        <button class="btn btn-outline-dark" onclick="handleSlide('corporate')">Corporate Events</button>
-      </div>
-
-      <div id="eventCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner text-center">
-          <div class="carousel-item active" id="wedding">
-            <div class="row">
-              <div class="col-md-3">
-                <img src="{% static 'wed1.jpeg' %}" class="d-block w-100">
-              </div>
-              <div class="col-md-3">
-                <img src="{% static 'wed2.jpeg' %}" class="d-block w-100">
-              </div>
-              <div class="col-md-3">
-                <img src="{% static 'wed3.jpeg' %}" class="d-block w-100">
-              </div>
-              <div class="col-md-3">
-                <img src="{% static 'wed4.jpeg' %}" class="d-block w-100">
-              </div>
-            </div>
-          </div>
-
-          <div class="carousel-item" id="private">
-            <div class="row">
-              <div class="col-md-3">
-                <img src="{% static 'bday1.jpeg' %}" class="d-block w-100">
-              </div>
-              <div class="col-md-3">
-                <img src="{% static 'bday2.jpeg' %}" class="d-block w-100">
-              </div>
-              <div class="col-md-3">
-                <img src="{% static 'bday3.jpeg' %}" class="d-block w-100">
-              </div>
-              <div class="col-md-3">
-                <img src="{% static 'bday4.jpeg' %}" class="d-block w-100">
-              </div>
-            </div>
-          </div>
-
-          <div class="carousel-item" id="corporate">
-            <div class="row">
-              <div class="col-md-3">
-                <img src="{% static 'corporate.jpeg' %}" class="d-block w-100">
-              </div>
-              <div class="col-md-3">
-                <img src="{% static 'corporate2.jpeg' %}" class="d-block w-100">
-              </div>
-              <div class="col-md-3">
-                <img src="{% static 'corporate3.jpeg' %}" class="d-block w-100">
-              </div>
-              <div class="col-md-3">
-                <img src="{% static 'corporate4.jpeg' %}" class="d-block w-100">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <button class="carousel-control-prev" type="button" data-bs-target="#eventCarousel" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#eventCarousel" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        </button>
-      </div>
-
-      <div id="carouselExampleInterval" style="display: none;" class="carousel slide" data-bs-ride="carousel">
+      <div
+        id="carouselExampleAutoplaying"
+        class="carousel slide"
+        data-bs-ride="carousel"
+        data-bs-interval="3000"
+      >
         <div class="carousel-inner">
-          <div class="carousel-item active" data-bs-interval="3000">
-            <div class="row">
-              <div class="col-md-3">
-                <img src="{% static 'wed1.jpeg' %}" class="d-block w-100">
-              </div>
-              <div class="col-md-3">
-                <img src="{% static 'bday1.jpeg' %}" class="d-block w-100">
-              </div>
-              <div class="col-md-3">
-                <img src="{% static 'corporate.jpeg' %}" class="d-block w-100">
-              </div>
-              <div class="col-md-3">
-                <img src="{% static 'wed2.jpeg' %}" class="d-block w-100">
-              </div>
-            </div>
+          <div class="carousel-item active">
+            <img
+              src="{% static 'main.png' %}"
+              class="d-block w-100"
+              alt="..."
+              height="600vh"
+            />
           </div>
-          <div class="carousel-item" data-bs-interval="3000">
-            <div class="row">
-              <div class="col-md-3">
-                <img src="{% static 'bday2.jpeg' %}" class="d-block w-100">
-              </div>
-              <div class="col-md-3">
-                <img src="{% static 'corporate2.jpeg' %}" class="d-block w-100">
-              </div>
-              <div class="col-md-3">
-                <img src="{% static 'wed3.jpeg' %}" class="d-block w-100">
-              </div>
-              <div class="col-md-3">
-                <img src="{% static 'bday3.jpeg' %}" class="d-block w-100">
-              </div>
-            </div>
+          <div class="carousel-item">
+            <img
+              src="{% static 'main2.jpg' %}"
+              class="d-block w-100"
+              alt="..."
+              height="600vh"
+            />
           </div>
-          <div class="carousel-item" data-bs-interval="3000">
-            <div class="row">
-              <div class="col-md-3">
-                <img src="{% static 'corporate3.jpeg' %}" class="d-block w-100">
-              </div>
-              <div class="col-md-3">
-                <img src="{% static 'wed4.jpeg' %}" class="d-block w-100">
-              </div>
-              <div class="col-md-3">
-                <img src="{% static 'bday4.jpeg' %}" class="d-block w-100">
-              </div>
-              <div class="col-md-3">
-                <img src="{% static 'corporate4.jpeg' %}" class="d-block w-100">
-              </div>
-            </div>
+          <div class="carousel-item">
+            <img
+              src="{% static 'main3.jpg' %}"
+              class="d-block w-100"
+              alt="..."
+              height="600vh"
+            />
           </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+
+        <div class="carousel-button-container">
+          <a href="{% url 'aboutus' %}"
+            ><button class="btn">Know More</button></a
+          >
+        </div>
+
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleAutoplaying"
+          data-bs-slide="prev"
+        >
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleAutoplaying"
+          data-bs-slide="next"
+        >
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
         </button>
       </div>
-    </div>
-    
-    <div class="row g-0 r3">
-      <div class="row ps-3 g-0">
-        <div class="col-lg-4 m-5 p-5">
-          <span class="hr3">We Plan and Deliver Event Services to meet your expectations</span><br><br>
-          <span class="h1r3">Alora Event Management is a premier 
-            company dedicated to crafting 
-            extraordinary experiences tailored to
-            your vision. With a passion for precision 
-            and creativity, Alora transforms ideas 
-            into unforgettable moments, offering 
-            end-to-end event planning, design, 
-            and execution. Whether it's a corporate 
-            gala, a dream wedding, or a milestone 
-            celebration, Alora ensures every 
-            detail is seamless, leaving you free to 
-            enjoy the magic of your special occasion.</span>
+
+      <div class="container-fluid">
+        <div class="row d-flex justify-content-around align-items-center">
+          <div class="col-md-3 col-6 text-white p-2 p-md-3 text-center mb-3 mb-md-0">
+            <img src="{% static 'venue.png' %}" alt="Venue icon" class="img-fluid" />
+            <span class="txt d-block mt-2">VENUE</span>
+          </div>
+          <div class="col-md-3 col-6 text-white p-2 p-md-3 text-center mb-3 mb-md-0">
+            <img src="{% static 'decor.png' %}" alt="Decor icon" class="img-fluid" />
+            <span class="txt d-block mt-2">DECOR</span>
+          </div>
+          <div class="col-md-3 col-6 text-white p-2 p-md-3 text-center mb-3 mb-md-0">
+            <img src="{% static 'catering.png' %}" alt="Catering icon" class="img-fluid" />
+            <span class="txt d-block mt-2">CATERING</span>
+          </div>
+          <div class="col-md-3 col-6 text-white p-2 p-md-3 text-center mb-3 mb-md-0">
+            <img src="{% static 'photography.png' %}" alt="Photography icon" class="img-fluid" />
+            <span class="txt d-block mt-2">PHOTOGRAPHY</span>
+          </div>
         </div>
-        <div class="col-lg-7 mt-5 im">
-          <div class="row g-0 mt-5">
-            <div class="col">
-              <img src="{% static 'corporate.png' %}" alt="c" height="260px" width="100%">
-              <img src="{% static 'wed5.jpg' %}" alt="c" height="500px" width="100%">
+      </div>
+
+      <div class="row g-0 r2">
+        <span class="ep">EVENT PLANNER</span>
+        <span class="ep1">"We Plan Your Dream Weddings and Events"</span>
+        <div class="d-flex justify-content-center gap-5 mb-3 mt-4">
+          <button
+            class="btn btn-outline-dark active"
+            onclick="handleSlide('all')"
+          >
+            All
+          </button>
+          <button class="btn btn-outline-dark" onclick="handleSlide('wedding')">
+            Weddings
+          </button>
+          <button class="btn btn-outline-dark" onclick="handleSlide('private')">
+            Private Events
+          </button>
+          <button
+            class="btn btn-outline-dark"
+            onclick="handleSlide('corporate')"
+          >
+            Corporate Events
+          </button>
+        </div>
+
+        <div id="eventCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner text-center">
+            <div class="carousel-item active" id="wedding">
+              <div class="row">
+                <div class="col-md-3">
+                  <img src="{% static 'wed1.jpeg' %}" class="d-block w-100" />
+                </div>
+                <div class="col-md-3">
+                  <img src="{% static 'wed2.jpeg' %}" class="d-block w-100" />
+                </div>
+                <div class="col-md-3">
+                  <img src="{% static 'wed3.jpeg' %}" class="d-block w-100" />
+                </div>
+                <div class="col-md-3">
+                  <img src="{% static 'wed4.jpeg' %}" class="d-block w-100" />
+                </div>
+              </div>
             </div>
-            <div class="col">
-              <img src="{% static 'wed3.png' %}" alt="w" height="500px" width="100%">
-              <img src="{% static 'bday1.png' %}" alt="s" height="260px" width="100%">
+
+            <div class="carousel-item" id="private">
+              <div class="row">
+                <div class="col-md-3">
+                  <img src="{% static 'bday1.jpeg' %}" class="d-block w-100" />
+                </div>
+                <div class="col-md-3">
+                  <img src="{% static 'bday2.jpeg' %}" class="d-block w-100" />
+                </div>
+                <div class="col-md-3">
+                  <img src="{% static 'bday3.jpeg' %}" class="d-block w-100" />
+                </div>
+                <div class="col-md-3">
+                  <img src="{% static 'bday4.jpeg' %}" class="d-block w-100" />
+                </div>
+              </div>
+            </div>
+
+            <div class="carousel-item" id="corporate">
+              <div class="row">
+                <div class="col-md-3">
+                  <img
+                    src="{% static 'corporate.jpeg' %}"
+                    class="d-block w-100"
+                  />
+                </div>
+                <div class="col-md-3">
+                  <img
+                    src="{% static 'corporate2.jpeg' %}"
+                    class="d-block w-100"
+                  />
+                </div>
+                <div class="col-md-3">
+                  <img
+                    src="{% static 'corporate3.jpeg' %}"
+                    class="d-block w-100"
+                  />
+                </div>
+                <div class="col-md-3">
+                  <img
+                    src="{% static 'corporate4.jpeg' %}"
+                    class="d-block w-100"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#eventCarousel"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#eventCarousel"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <div
+          id="carouselExampleInterval"
+          style="display: none"
+          class="carousel slide"
+          data-bs-ride="carousel"
+        >
+          <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="3000">
+              <div class="row">
+                <div class="col-md-3">
+                  <img src="{% static 'wed1.jpeg' %}" class="d-block w-100" />
+                </div>
+                <div class="col-md-3">
+                  <img src="{% static 'bday1.jpeg' %}" class="d-block w-100" />
+                </div>
+                <div class="col-md-3">
+                  <img
+                    src="{% static 'corporate.jpeg' %}"
+                    class="d-block w-100"
+                  />
+                </div>
+                <div class="col-md-3">
+                  <img src="{% static 'wed2.jpeg' %}" class="d-block w-100" />
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="3000">
+              <div class="row">
+                <div class="col-md-3">
+                  <img src="{% static 'bday2.jpeg' %}" class="d-block w-100" />
+                </div>
+                <div class="col-md-3">
+                  <img
+                    src="{% static 'corporate2.jpeg' %}"
+                    class="d-block w-100"
+                  />
+                </div>
+                <div class="col-md-3">
+                  <img src="{% static 'wed3.jpeg' %}" class="d-block w-100" />
+                </div>
+                <div class="col-md-3">
+                  <img src="{% static 'bday3.jpeg' %}" class="d-block w-100" />
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="3000">
+              <div class="row">
+                <div class="col-md-3">
+                  <img
+                    src="{% static 'corporate3.jpeg' %}"
+                    class="d-block w-100"
+                  />
+                </div>
+                <div class="col-md-3">
+                  <img src="{% static 'wed4.jpeg' %}" class="d-block w-100" />
+                </div>
+                <div class="col-md-3">
+                  <img src="{% static 'bday4.jpeg' %}" class="d-block w-100" />
+                </div>
+                <div class="col-md-3">
+                  <img
+                    src="{% static 'corporate4.jpeg' %}"
+                    class="d-block w-100"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleInterval"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleInterval"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="row g-0 r3">
+        <div class="row ps-3 g-0">
+          <div class="col-lg-4 m-5 p-5">
+            <span class="hr3"
+              >We Plan and Deliver Event Services to meet your
+              expectations</span
+            ><br /><br />
+            <span class="h1r3"
+              >Alora Event Management is a premier company dedicated to crafting
+              extraordinary experiences tailored to your vision. With a passion
+              for precision and creativity, Alora transforms ideas into
+              unforgettable moments, offering end-to-end event planning, design,
+              and execution. Whether it's a corporate gala, a dream wedding, or
+              a milestone celebration, Alora ensures every detail is seamless,
+              leaving you free to enjoy the magic of your special
+              occasion.</span
+            >
+          </div>
+          <div class="col-lg-7 mt-5 im">
+            <div class="row g-0 mt-5">
+              <div class="col">
+                <img
+                  src="{% static 'corporate.png' %}"
+                  alt="c"
+                  height="260px"
+                  width="100%"
+                />
+                <img
+                  src="{% static 'wed5.jpg' %}"
+                  alt="c"
+                  height="500px"
+                  width="100%"
+                />
+              </div>
+              <div class="col">
+                <img
+                  src="{% static 'wed3.png' %}"
+                  alt="w"
+                  height="500px"
+                  width="100%"
+                />
+                <img
+                  src="{% static 'bday1.png' %}"
+                  alt="s"
+                  height="260px"
+                  width="100%"
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  
-  <!-- Footer Section -->
-  <footer class="footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4 mb-4">
-          <div class="logo">ALORA</div>
-          <p class="mt-3">Copyright © Alora Events. All rights reserved.</p>
-        </div>
-        <div class="col-md-4 mb-4">
-          <h4>Links</h4>
-          <ul class="footer-links">
-            <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'service' %}">Services</a></li>
-            <li><a href="{% url 'aboutus' %}">About</a></li>
-            <li><a href="{% url 'gallery' %}">Gallery</a></li>
-            <li><a href="{% url 'testimonial' %}">Testimonials</a></li>
-          </ul>
-        </div>
-        <div class="col-md-4 mb-4">
-          <h4>Contact Us</h4>
-          <ul class="footer-links">
-            <li>✉ aloraevents@gmail.com</li>
-            <li>📞 Phone: 9633769633</li>
-            <li>📞 9645757016</li>
-            <li>📍 37/1143-B Karanthur, Nilambur Rd, 2nd Floor, Paradise, Kondotty, Kerala 673638</li>
-          </ul>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <div class="logo">ALORA</div>
+            <p class="mt-3">Copyright © Alora Events. All rights reserved.</p>
+          </div>
+          <div class="col-md-4 mb-4">
+            <h4>Links</h4>
+            <ul class="footer-links">
+              <li><a href="{% url 'home' %}">Home</a></li>
+              <li><a href="{% url 'service' %}">Services</a></li>
+              <li><a href="{% url 'aboutus' %}">About</a></li>
+              <li><a href="{% url 'gallery' %}">Gallery</a></li>
+              <li><a href="{% url 'testimonial' %}">Testimonials</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4 mb-4">
+            <h4>Contact Us</h4>
+            <ul class="footer-links">
+              <li>✉ aloraevents@gmail.com</li>
+              <li>📞 Phone: 9633769633</li>
+              <li>📞 9645757016</li>
+              <li>
+                📍 37/1143-B Karanthur, Nilambur Rd, 2nd Floor, Paradise,
+                Kondotty, Kerala 673638
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-  </footer>
+    </footer>
 
-  <script>
-    function handleSlide(category) {
-      const wedding = document.getElementById('wedding');
-      const private = document.getElementById('private');
-      const corporate = document.getElementById('corporate');
-      const c1 = document.getElementById('eventCarousel');
-      const c2 = document.getElementById("carouselExampleInterval");
+    <script>
+      function handleSlide(category) {
+        const wedding = document.getElementById("wedding");
+        const private = document.getElementById("private");
+        const corporate = document.getElementById("corporate");
+        const c1 = document.getElementById("eventCarousel");
+        const c2 = document.getElementById("carouselExampleInterval");
 
-      // Hide all sections first
-      wedding.style.display = "none";
-      private.style.display = "none";
-      corporate.style.display = "none";
+        // Hide all sections first
+        wedding.style.display = "none";
+        private.style.display = "none";
+        corporate.style.display = "none";
 
-      // Show only the selected category
-      if (category === 'wedding') {
-        wedding.style.display = "block";
-        c1.style.display = "block";
-        c2.style.display = "none";
-      } else if (category === 'private') {
-        private.style.display = "block";
-        c1.style.display = "block";
-        c2.style.display = "none";
-      } else if (category === 'corporate') {
-        corporate.style.display = "block";
-        c1.style.display = "block";
-        c2.style.display = "none";
-      } else {
-        c1.style.display = "none";
-        c2.style.display = "block";
+        // Show only the selected category
+        if (category === "wedding") {
+          wedding.style.display = "block";
+          c1.style.display = "block";
+          c2.style.display = "none";
+        } else if (category === "private") {
+          private.style.display = "block";
+          c1.style.display = "block";
+          c2.style.display = "none";
+        } else if (category === "corporate") {
+          corporate.style.display = "block";
+          c1.style.display = "block";
+          c2.style.display = "none";
+        } else {
+          c1.style.display = "none";
+          c2.style.display = "block";
+        }
+
+        document.querySelectorAll(".btn-outline-dark").forEach((btn) => {
+          btn.classList.remove("active");
+        });
+
+        // Add 'active' class to the clicked button
+        event.target.classList.add("active");
       }
 
-        document.querySelectorAll('.btn-outline-dark').forEach(btn => {
-          btn.classList.remove('active');
+      // Fixed toggle button functionality
+      document.addEventListener("DOMContentLoaded", function() {
+        const toggleButton = document.querySelector(".toggle-button");
+        const topmenu = document.querySelector(".topmenu");
+        const rc3 = document.querySelector(".rc3");
+        
+        // Make sure the toggle button is clickable
+        toggleButton.addEventListener("click", function() {
+          topmenu.classList.toggle("active");
+          rc3.classList.toggle("active");
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener("click", function(event) {
+          const isClickInsideToggle = toggleButton.contains(event.target);
+          const isClickInsideMenu = topmenu.contains(event.target) || rc3.contains(event.target);
+          
+          if (!isClickInsideToggle && !isClickInsideMenu && 
+             (topmenu.classList.contains("active") || rc3.classList.contains("active"))) {
+            topmenu.classList.remove("active");
+            rc3.classList.remove("active");
+          }
+        });
+        
+        // Prevent propagation from menu items
+        const menuItems = document.querySelectorAll(".topmenu a, .rc3 a");
+        menuItems.forEach(item => {
+          item.addEventListener("click", function() {
+            // Close the menu when an item is clicked
+            topmenu.classList.remove("active");
+            rc3.classList.remove("active");
+          });
+        });
       });
-
-      // Add 'active' class to the clicked button
-      event.target.classList.add('active');
-    }
-
-    const toggleButton = document.querySelector('.toggle-button');
-  const topmenu = document.querySelector('.topmenu');
-
-  toggleButton.addEventListener('click', () => {
-      topmenu.classList.toggle('active');
-  });
-  </script>
-</body>
+    </script>
+  </body>
 </html>
